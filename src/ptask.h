@@ -6,7 +6,7 @@
 #define __PTASK_H__
 
 #include "dle_timer.h"
-#include <libdl_loc.h>
+#include <libdl.h>
 #include <linux/sched.h>
 #include <pthread.h>
 #include <ptime.h>
