@@ -8,13 +8,13 @@ set(SOURCE_FILES
   ptime.c
   rtmode.c
   tstat.c
-  libdl_loc.c
+  libdl.c
   dle_timer.c
   calibrate.c
 )
 
 set(HEADER_FILES
-  libdl_loc.h
+  libdl.h
   pbarrier.h
   pmutex.h
   ptask.h
