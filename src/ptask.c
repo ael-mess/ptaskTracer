@@ -1,4 +1,8 @@
 #define _GNU_SOURCE
+#define TRACEPOINT_DEFINE //mie
+#define TRACEPOINT_CREATE_PROBES //mie
+//#define TRACEPOINT_PROBE_DYNAMIC_LINKAGE //mie
+#include "tp.h" //mie
 #include "ptask.h"
 #include "pmutex.h"
 #include "tstat.h"
@@ -6,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h> //mie
 
 const tpars TASK_SPEC_DFL = {.runtime = {1, 0},
                              .period = {1, 0},
@@ -192,7 +197,20 @@ void ptask_init(int policy, global_policy global, sem_protocol protocol) {
     tspec_init();
 }
 
+//mie
+void tpoint(char* flag, char* state) {
+	pid_t tid = gettid();
+	pid_t pid = getpid();
+	struct timespec now;
+    clock_gettime(CLOCK_REALTIME, &now);
+	tracepoint(ptask_provider, ptask_tracepoint, pid, tid, ptask_idx, flag, state, tspec_to_rel(&now, MICRO), _tp[ptask_idx].priority, tspec_to(&_tp[ptask_idx].period, MICRO), tspec_to(&_tp[ptask_idx].deadline, MICRO));
+}
+
 static int __create_internal(void (*task)(void), tpars *tp) {
+
+	if(tp->act_flag == NOW) tpoint("NOW", "creation"); //mie
+	else if(tp->act_flag == DEFERRED) tpoint("DEFERRED", "creation"); //mie
+
     // pthread_attr_t	myatt;
     struct sched_param mypar;
     int tret;
@@ -304,6 +322,10 @@ int ptask_create_edf(void (*task)(void), int period, int runtime, int dline,
 }
 
 void ptask_wait_for_period() {
+
+	if(_tp[ptask_idx].act_flag == NOW) tpoint("NOW", "b_wait_period"); //mie
+	else if(_tp[ptask_idx].act_flag == DEFERRED) tpoint("DEFERRED", "b_wait_period"); //mie
+
     pthread_mutex_lock(&_tp[ptask_idx].mux);
     if (_tp[ptask_idx].measure_flag)
         tstat_record(ptask_idx);
@@ -313,6 +335,9 @@ void ptask_wait_for_period() {
         maxsem_post(&_tp[ptask_idx].modes->manager, &_tp[ptask_idx].at);
         pthread_mutex_unlock(&_tp[ptask_idx].mux);
         ptask_wait_for_activation();
+
+		if(_tp[ptask_idx].act_flag == NOW) tpoint("NOW", "e_wait_period"); //mie
+		else if(_tp[ptask_idx].act_flag == DEFERRED) tpoint("DEFERRED", "e_wait_period"); //mie
         return;
     } else {
         _tp[ptask_idx].state = TASK_WFP;
@@ -330,6 +355,9 @@ void ptask_wait_for_period() {
             tspec_add(&(_tp[ptask_idx].at), &_tp[ptask_idx].period);
 
         pthread_mutex_unlock(&_tp[ptask_idx].mux);
+		
+		if(_tp[ptask_idx].act_flag == NOW) tpoint("NOW", "e_wait_period"); //mie
+		else if(_tp[ptask_idx].act_flag == DEFERRED) tpoint("DEFERRED", "e_wait_period"); //mie
         return;
     }
 }
@@ -340,6 +368,9 @@ void ptask_wait_for_period() {
 /*		     	 and computes the next activation time	*/
 /*--------------------------------------------------------------*/
 void ptask_wait_for_activation() {
+	if(_tp[ptask_idx].act_flag == NOW) tpoint("NOW", "b_wait_activation"); //mie
+	else if(_tp[ptask_idx].act_flag == DEFERRED) tpoint("DEFERRED", "b_wait_activation"); //mie
+
     /* suspend on a private semaphore */
     _tp[ptask_idx].state = TASK_SUSPENDED;
     // printf("before sem_wait on task %d\n", ptask_idx);
@@ -356,6 +387,9 @@ void ptask_wait_for_activation() {
         _tp[ptask_idx].offset = tspec_zero;
     }
     pthread_mutex_unlock(&_tp[ptask_idx].mux);
+
+	if(_tp[ptask_idx].act_flag == NOW) tpoint("NOW", "e_wait_activation"); //mie
+	else if(_tp[ptask_idx].act_flag == DEFERRED) tpoint("DEFERRED", "e_wait_activation"); //mie
 }
 
 /*--------------------------------------------------------------*/

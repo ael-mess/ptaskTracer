@@ -14,6 +14,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define TRACEPOINT_DEFINE //mie
+#define TRACEPOINT_PROBE_DYNAMIC_LINKAGE //mie
+
 #define XWIN 640
 #define YWIN 480
 #define PI 3.1415

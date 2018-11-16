@@ -14,12 +14,11 @@ add_executable(modes modes.c)
 add_executable(deadline_exception deadline_exception.c)
 add_executable(pcp pcp.c)
 
-
-target_link_libraries(ball ptask Threads::Threads ${ALLEGRO_LIBRARY} m rt)
-target_link_libraries(pbarr_example ptask Threads::Threads ${ALLEGRO_LIBRARY} m rt)
-target_link_libraries(modes ptask Threads::Threads ${ALLEGRO_LIBRARY} m rt)
-target_link_libraries(deadline_exception ptask Threads::Threads ${ALLEGRO_LIBRARY} m rt)
-target_link_libraries(pcp ptask Threads::Threads ${ALLEGRO_LIBRARY} m rt)
+target_link_libraries(ball lttng ptask Threads::Threads ${ALLEGRO_LIBRARY} m rt dl lttng-ust) #mie
+target_link_libraries(pbarr_example lttng ptask Threads::Threads ${ALLEGRO_LIBRARY} m rt dl lttng-ust) #mie
+target_link_libraries(modes lttng ptask Threads::Threads ${ALLEGRO_LIBRARY} m rt dl lttng-ust) #mie
+target_link_libraries(deadline_exception lttng ptask Threads::Threads ${ALLEGRO_LIBRARY} m rt dl lttng-ust) #mie
+target_link_libraries(pcp lttng ptask Threads::Threads ${ALLEGRO_LIBRARY} m rt dl lttng-ust) #mie
 
 file(COPY pcp.dat DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
