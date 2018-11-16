@@ -1,0 +1,78 @@
+* Version 0.2 beta
+
+**  Changes with respect to version 0.1
+
+*** New ptask_init()
+    Now ptask_init() takes three parameters: the scheduling policy
+    (SCHED_FIFO, SCHED_RR or SCHED_OTHER), the global flag (PARTITIONED
+    or GLOBAL), and the semaphore protocol (PRIO_INHERITANCE or PRIO_CEILING).
+    
+*** Changes in the name of the types
+    Now ptime_t -> ptime 
+    Now tspec_t -> tspec
+    
+**** *WARNING* 
+     ptime is a common name, quite easy to come up with and use in
+     your program.  Maybe it is better to go back and use ptime_t
+     again
+
+*** wait_flag has been removed
+
+    Now, if you specify act_flag=ACT then the thread starts right away (as in 
+    pthread). If you specify act_flag=NOACT, then the thread waits for an 
+    explicit activation with the task_activate()
+
+*** wait_for_period() has been substituted with wait_for_instance()
+    The latter is also valid for aperiodic tasks. 
+    Now, a task (both periodic and aperiodic) has the same structure:
+    
+    while (...) {
+       <task body> 
+       wait_for_instance();
+    }
+
+    if the task is periodic, the wait_for_instance waits until the end of the
+    period; if it is aperiodic, the wait_for_instance() waits for an explicit
+    activate. 
+
+    Function wait_for_activation() has been kept, and is simply blocks the 
+    task on a private semaphore until the task is activated expliticely with 
+    a task_activate(). This function can be invoked by both periodic and 
+    aperiodic tasks without distinctions. 
+
+*** task_create() and task_create_ex() have been remaned
+    Now their name starts with ptask_ for uniformity of the interface.
+
+
+ 
+
+*** removed the wcet related function
+    To measure wcet, use module tstat.h
+
+
+
+** Known Issues
+
+*** ball.c crashes on exit. 
+    In particular, the allegro_exit() produces a core-dump.  I still
+    do not know what is going on with that.
+     
+*** pcp.c sometimes crashes
+
+    Not clear why. Here is the error message:
+
+    > pcp: pthread_mutex_lock.c:459: __pthread_mutex_lock_full: Assertion `mutex->__data.__owner == 0' failed.
+    > Aborted (core dumped)
+
+
+
+* Version 0.3
+
+** Changes wrt to version 0.2
+   - Solved many bugs related to macros
+   - Changed the interface for ptask_param_add_mode()
+   
+
+** Known issues
+
+   Crashes on exit of pcp.c is still there. 
