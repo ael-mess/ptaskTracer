@@ -14,4 +14,4 @@ sudo sleep 5
 sudo lttng stop
 sudo lttng destroy
 sudo sleep .5
-sudo babeltrace /root/lttng-traces/ball_context* #|grep -v kworker/
+sudo babeltrace /root/lttng-traces/ball_context* | sed '/prev_comm\ =\ \"ball\".*next_comm\ =\ \"ball\"\|clone\|ptask_tracepoint/!d'
