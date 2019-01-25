@@ -18,7 +18,7 @@ public class main {
         tasks.setTraces(parser.getTraces());
         tasks.setTasks();
 
-        //tasks.check();
-        System.out.println(tasks.description());
+        tasks.check();
+        //System.out.println(tasks.description());
     }
 }
