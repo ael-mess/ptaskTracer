@@ -1,7 +1,7 @@
 // Generated from com/parser/traceParser.g4 by ANTLR 4.7.1
 
-  package com.parser;
-  import com.event.*;
+package com.parser;
+import com.event.*;
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -61,45 +61,15 @@ public interface traceParserListener extends ParseTreeListener {
 	 */
 	void exitContext(traceParser.ContextContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link traceParser#fields_exit_clone}.
+	 * Enter a parse tree produced by {@link traceParser#comm}.
 	 * @param ctx the parse tree
 	 */
-	void enterFields_exit_clone(traceParser.Fields_exit_cloneContext ctx);
+	void enterComm(traceParser.CommContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link traceParser#fields_exit_clone}.
+	 * Exit a parse tree produced by {@link traceParser#comm}.
 	 * @param ctx the parse tree
 	 */
-	void exitFields_exit_clone(traceParser.Fields_exit_cloneContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link traceParser#fields_entry_clone}.
-	 * @param ctx the parse tree
-	 */
-	void enterFields_entry_clone(traceParser.Fields_entry_cloneContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link traceParser#fields_entry_clone}.
-	 * @param ctx the parse tree
-	 */
-	void exitFields_entry_clone(traceParser.Fields_entry_cloneContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link traceParser#fields_sched_switch}.
-	 * @param ctx the parse tree
-	 */
-	void enterFields_sched_switch(traceParser.Fields_sched_switchContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link traceParser#fields_sched_switch}.
-	 * @param ctx the parse tree
-	 */
-	void exitFields_sched_switch(traceParser.Fields_sched_switchContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link traceParser#fields_ptask_tracepoint}.
-	 * @param ctx the parse tree
-	 */
-	void enterFields_ptask_tracepoint(traceParser.Fields_ptask_tracepointContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link traceParser#fields_ptask_tracepoint}.
-	 * @param ctx the parse tree
-	 */
-	void exitFields_ptask_tracepoint(traceParser.Fields_ptask_tracepointContext ctx);
+	void exitComm(traceParser.CommContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link traceParser#sint}.
 	 * @param ctx the parse tree

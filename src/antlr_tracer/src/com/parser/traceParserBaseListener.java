@@ -1,7 +1,7 @@
 // Generated from com/parser/traceParser.g4 by ANTLR 4.7.1
 
-  package com.parser;
-  import com.event.*;
+package com.parser;
+import com.event.*;
 
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -79,49 +79,13 @@ public class traceParserBaseListener implements traceParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFields_exit_clone(traceParser.Fields_exit_cloneContext ctx) { }
+	@Override public void enterComm(traceParser.CommContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFields_exit_clone(traceParser.Fields_exit_cloneContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFields_entry_clone(traceParser.Fields_entry_cloneContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFields_entry_clone(traceParser.Fields_entry_cloneContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFields_sched_switch(traceParser.Fields_sched_switchContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFields_sched_switch(traceParser.Fields_sched_switchContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFields_ptask_tracepoint(traceParser.Fields_ptask_tracepointContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFields_ptask_tracepoint(traceParser.Fields_ptask_tracepointContext ctx) { }
+	@Override public void exitComm(traceParser.CommContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
