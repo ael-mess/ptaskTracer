@@ -1,7 +1,7 @@
 // Generated from com/parser/traceParser.g4 by ANTLR 4.7.1
 
-  package com.parser;
-  import com.event.*;
+package com.parser;
+import com.event.*;
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -20,42 +20,41 @@ public class traceParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		PTASK_TRACEPOINT=1, SCHED_SWITCH=2, EXIT_CLONE=3, ENTRY_CLONE=4, FIELD1=5, 
-		FIELD2=6, FIELD3=7, FIELD4=8, FIELD5=9, FIELD6=10, FIELD7=11, FIELD8=12, 
-		FIELD9=13, FIELD10=14, FIELD11=15, FIELD12=16, FIELD13=17, FIELD14=18, 
-		FIELD15=19, FIELD16=20, FIELD18=21, FIELD19=22, FIELD20=23, FIELD21=24, 
-		FIELD22=25, FIELD23=26, FIELD24=27, FIELD25=28, PTASK_STATE=29, PTASK_FLAG=30, 
-		COMM=31, EQ=32, PLUS=33, DOT=34, COL=35, COM=36, LBRA=37, RBRA=38, LPAR=39, 
-		RPAR=40, LCBRA=41, RCBRA=42, DELTA=43, INT=44, SINT=45, HEX=46, HOSTNAME=47, 
-		WS=48;
+		EQ=1, PLUS=2, DOT=3, COL=4, COM=5, LBRA=6, RBRA=7, LPAR=8, RPAR=9, LCBRA=10, 
+		RCBRA=11, QUOT=12, PTASK_TRACEPOINT=13, SCHED_SWITCH=14, EXIT_CLONE=15, 
+		ENTRY_CLONE=16, CPU_ID=17, PID=18, TID=19, RET=20, CLONE_FLAG=21, NEWSP=22, 
+		PARENT_TID=23, CHILD_TID=24, PREV_COMM=25, PREV_TID=26, PREV_PRIO=27, 
+		PREV_STATE=28, NEXT_COMM=29, NEXT_TID=30, NEXT_PRIO=31, PTASK_FLAG_F=32, 
+		PTASK_STATE_F=33, PTASK_PID=34, PTASK_TID=35, PTASK_INDEX=36, PTASK_TIME=37, 
+		PTASK_PRIORITY=38, PTASK_PERIOD=39, PTASK_DEADLINE=40, PTASK_STATE=41, 
+		PTASK_FLAG=42, DELTA=43, INT=44, SINT=45, HEX=46, ID=47, HOSTNAME=48, 
+		WS=49;
 	public static final int
 		RULE_start = 0, RULE_trace = 1, RULE_timestamp = 2, RULE_header = 3, RULE_context = 4, 
-		RULE_fields_exit_clone = 5, RULE_fields_entry_clone = 6, RULE_fields_sched_switch = 7, 
-		RULE_fields_ptask_tracepoint = 8, RULE_sint = 9;
+		RULE_comm = 5, RULE_sint = 6;
 	public static final String[] ruleNames = {
-		"start", "trace", "timestamp", "header", "context", "fields_exit_clone", 
-		"fields_entry_clone", "fields_sched_switch", "fields_ptask_tracepoint", 
-		"sint"
+		"start", "trace", "timestamp", "header", "context", "comm", "sint"
 	};
 
 	private static final String[] _LITERAL_NAMES = {
-		null, "'ptask_provider:ptask_tracepoint'", "'sched_switch'", "'syscall_exit_clone'", 
-		"'syscall_entry_clone'", "'cpu_id'", "'pid'", "'tid'", "'ret'", "'clone_flags'", 
-		"'newsp'", "'parent_tid'", "'child_tid'", "'prev_comm'", "'prev_tid'", 
-		"'prev_prio'", "'prev_state'", "'next_comm'", "'next_tid'", "'next_prio'", 
-		"'ptask_flag'", "'ptask_state'", "'ptask_pid'", "'ptask_tid'", "'ptask_index'", 
-		"'ptask_time'", "'ptask_priority'", "'ptask_period'", "'ptask_deadline'", 
-		null, null, "'\"ball\"'", "'='", "'+'", "'.'", "':'", "','", "'['", "']'", 
-		"'('", "')'", "'{'", "'}'"
+		null, "'='", "'+'", "'.'", "':'", "','", "'['", "']'", "'('", "')'", "'{'", 
+		"'}'", "'\"'", "'ptask_provider:ptask_tracepoint'", "'sched_switch'", 
+		"'syscall_exit_clone'", "'syscall_entry_clone'", "'cpu_id'", "'pid'", 
+		"'tid'", "'ret'", "'clone_flags'", "'newsp'", "'parent_tid'", "'child_tid'", 
+		"'prev_comm'", "'prev_tid'", "'prev_prio'", "'prev_state'", "'next_comm'", 
+		"'next_tid'", "'next_prio'", "'ptask_flag'", "'ptask_state'", "'ptask_pid'", 
+		"'ptask_tid'", "'ptask_index'", "'ptask_time'", "'ptask_priority'", "'ptask_period'", 
+		"'ptask_deadline'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, "PTASK_TRACEPOINT", "SCHED_SWITCH", "EXIT_CLONE", "ENTRY_CLONE", 
-		"FIELD1", "FIELD2", "FIELD3", "FIELD4", "FIELD5", "FIELD6", "FIELD7", 
-		"FIELD8", "FIELD9", "FIELD10", "FIELD11", "FIELD12", "FIELD13", "FIELD14", 
-		"FIELD15", "FIELD16", "FIELD18", "FIELD19", "FIELD20", "FIELD21", "FIELD22", 
-		"FIELD23", "FIELD24", "FIELD25", "PTASK_STATE", "PTASK_FLAG", "COMM", 
-		"EQ", "PLUS", "DOT", "COL", "COM", "LBRA", "RBRA", "LPAR", "RPAR", "LCBRA", 
-		"RCBRA", "DELTA", "INT", "SINT", "HEX", "HOSTNAME", "WS"
+		null, "EQ", "PLUS", "DOT", "COL", "COM", "LBRA", "RBRA", "LPAR", "RPAR", 
+		"LCBRA", "RCBRA", "QUOT", "PTASK_TRACEPOINT", "SCHED_SWITCH", "EXIT_CLONE", 
+		"ENTRY_CLONE", "CPU_ID", "PID", "TID", "RET", "CLONE_FLAG", "NEWSP", "PARENT_TID", 
+		"CHILD_TID", "PREV_COMM", "PREV_TID", "PREV_PRIO", "PREV_STATE", "NEXT_COMM", 
+		"NEXT_TID", "NEXT_PRIO", "PTASK_FLAG_F", "PTASK_STATE_F", "PTASK_PID", 
+		"PTASK_TID", "PTASK_INDEX", "PTASK_TIME", "PTASK_PRIORITY", "PTASK_PERIOD", 
+		"PTASK_DEADLINE", "PTASK_STATE", "PTASK_FLAG", "DELTA", "INT", "SINT", 
+		"HEX", "ID", "HOSTNAME", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
 
@@ -138,22 +137,22 @@ public class traceParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			 ((StartContext)_localctx).traces =  new ArrayList<>(); 
-			setState(26);
+			setState(20);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==LBRA) {
 				{
 				{
-				setState(21);
+				setState(15);
 				((StartContext)_localctx).trace = trace();
 				 _localctx.traces.add(((StartContext)_localctx).trace.tr); 
 				}
 				}
-				setState(28);
+				setState(22);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(29);
+			setState(23);
 			match(EOF);
 			}
 		}
@@ -173,10 +172,27 @@ public class traceParser extends Parser {
 		public TimestampContext timestamp;
 		public HeaderContext header;
 		public ContextContext context;
-		public Fields_entry_cloneContext fields_entry_clone;
-		public Fields_exit_cloneContext fields_exit_clone;
-		public Fields_sched_switchContext fields_sched_switch;
-		public Fields_ptask_tracepointContext fields_ptask_tracepoint;
+		public Token clone_flag;
+		public Token newsp;
+		public Token ptid;
+		public Token ctid;
+		public Token ret;
+		public CommContext prev_comm;
+		public Token prev_tid;
+		public SintContext prev_prio;
+		public Token prev_state;
+		public CommContext next_comm;
+		public Token next_tid;
+		public SintContext next_prio;
+		public Token pid;
+		public Token tid;
+		public Token ptask_index;
+		public Token ptask_flag;
+		public Token ptask_state;
+		public Token times;
+		public Token ptask_prio;
+		public Token ptask_peri;
+		public Token ptask_dead;
 		public TimestampContext timestamp() {
 			return getRuleContext(TimestampContext.class,0);
 		}
@@ -201,21 +217,56 @@ public class traceParser extends Parser {
 		public ContextContext context() {
 			return getRuleContext(ContextContext.class,0);
 		}
-		public Fields_entry_cloneContext fields_entry_clone() {
-			return getRuleContext(Fields_entry_cloneContext.class,0);
+		public TerminalNode CLONE_FLAG() { return getToken(traceParser.CLONE_FLAG, 0); }
+		public List<TerminalNode> EQ() { return getTokens(traceParser.EQ); }
+		public TerminalNode EQ(int i) {
+			return getToken(traceParser.EQ, i);
+		}
+		public TerminalNode NEWSP() { return getToken(traceParser.NEWSP, 0); }
+		public TerminalNode PARENT_TID() { return getToken(traceParser.PARENT_TID, 0); }
+		public TerminalNode CHILD_TID() { return getToken(traceParser.CHILD_TID, 0); }
+		public List<TerminalNode> HEX() { return getTokens(traceParser.HEX); }
+		public TerminalNode HEX(int i) {
+			return getToken(traceParser.HEX, i);
 		}
 		public TerminalNode EXIT_CLONE() { return getToken(traceParser.EXIT_CLONE, 0); }
-		public Fields_exit_cloneContext fields_exit_clone() {
-			return getRuleContext(Fields_exit_cloneContext.class,0);
+		public TerminalNode RET() { return getToken(traceParser.RET, 0); }
+		public List<TerminalNode> INT() { return getTokens(traceParser.INT); }
+		public TerminalNode INT(int i) {
+			return getToken(traceParser.INT, i);
 		}
 		public TerminalNode SCHED_SWITCH() { return getToken(traceParser.SCHED_SWITCH, 0); }
-		public Fields_sched_switchContext fields_sched_switch() {
-			return getRuleContext(Fields_sched_switchContext.class,0);
+		public TerminalNode PREV_COMM() { return getToken(traceParser.PREV_COMM, 0); }
+		public TerminalNode PREV_TID() { return getToken(traceParser.PREV_TID, 0); }
+		public TerminalNode PREV_PRIO() { return getToken(traceParser.PREV_PRIO, 0); }
+		public TerminalNode PREV_STATE() { return getToken(traceParser.PREV_STATE, 0); }
+		public TerminalNode NEXT_COMM() { return getToken(traceParser.NEXT_COMM, 0); }
+		public TerminalNode NEXT_TID() { return getToken(traceParser.NEXT_TID, 0); }
+		public TerminalNode NEXT_PRIO() { return getToken(traceParser.NEXT_PRIO, 0); }
+		public List<CommContext> comm() {
+			return getRuleContexts(CommContext.class);
+		}
+		public CommContext comm(int i) {
+			return getRuleContext(CommContext.class,i);
+		}
+		public List<SintContext> sint() {
+			return getRuleContexts(SintContext.class);
+		}
+		public SintContext sint(int i) {
+			return getRuleContext(SintContext.class,i);
 		}
 		public TerminalNode PTASK_TRACEPOINT() { return getToken(traceParser.PTASK_TRACEPOINT, 0); }
-		public Fields_ptask_tracepointContext fields_ptask_tracepoint() {
-			return getRuleContext(Fields_ptask_tracepointContext.class,0);
-		}
+		public TerminalNode PTASK_PID() { return getToken(traceParser.PTASK_PID, 0); }
+		public TerminalNode PTASK_TID() { return getToken(traceParser.PTASK_TID, 0); }
+		public TerminalNode PTASK_INDEX() { return getToken(traceParser.PTASK_INDEX, 0); }
+		public TerminalNode PTASK_FLAG_F() { return getToken(traceParser.PTASK_FLAG_F, 0); }
+		public TerminalNode PTASK_STATE_F() { return getToken(traceParser.PTASK_STATE_F, 0); }
+		public TerminalNode PTASK_TIME() { return getToken(traceParser.PTASK_TIME, 0); }
+		public TerminalNode PTASK_PRIORITY() { return getToken(traceParser.PTASK_PRIORITY, 0); }
+		public TerminalNode PTASK_PERIOD() { return getToken(traceParser.PTASK_PERIOD, 0); }
+		public TerminalNode PTASK_DEADLINE() { return getToken(traceParser.PTASK_DEADLINE, 0); }
+		public TerminalNode PTASK_FLAG() { return getToken(traceParser.PTASK_FLAG, 0); }
+		public TerminalNode PTASK_STATE() { return getToken(traceParser.PTASK_STATE, 0); }
 		public TraceContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -234,143 +285,295 @@ public class traceParser extends Parser {
 		TraceContext _localctx = new TraceContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_trace);
 		try {
-			setState(95);
+			setState(165);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(31);
+				setState(25);
 				((TraceContext)_localctx).timestamp = timestamp();
-				setState(32);
+				setState(26);
 				match(HOSTNAME);
-				setState(33);
+				setState(27);
 				match(ENTRY_CLONE);
-				setState(34);
+				setState(28);
 				match(COL);
-				setState(35);
+				setState(29);
 				match(LCBRA);
-				setState(36);
+				setState(30);
 				((TraceContext)_localctx).header = header();
-				setState(37);
+				setState(31);
 				match(RCBRA);
-				setState(38);
+				setState(32);
 				match(COM);
-				setState(39);
+				setState(33);
 				match(LCBRA);
-				setState(40);
+				setState(34);
 				((TraceContext)_localctx).context = context();
-				setState(41);
+				setState(35);
 				match(RCBRA);
-				setState(42);
+				setState(36);
 				match(COM);
-				setState(43);
+				setState(37);
 				match(LCBRA);
+				setState(38);
+				match(CLONE_FLAG);
+				setState(39);
+				match(EQ);
+				setState(40);
+				((TraceContext)_localctx).clone_flag = match(HEX);
+				setState(41);
+				match(COM);
+				setState(42);
+				match(NEWSP);
+				setState(43);
+				match(EQ);
 				setState(44);
-				((TraceContext)_localctx).fields_entry_clone = fields_entry_clone();
+				((TraceContext)_localctx).newsp = match(HEX);
 				setState(45);
+				match(COM);
+				setState(46);
+				match(PARENT_TID);
+				setState(47);
+				match(EQ);
+				setState(48);
+				((TraceContext)_localctx).ptid = match(HEX);
+				setState(49);
+				match(COM);
+				setState(50);
+				match(CHILD_TID);
+				setState(51);
+				match(EQ);
+				setState(52);
+				((TraceContext)_localctx).ctid = match(HEX);
+				setState(53);
 				match(RCBRA);
-				 ((TraceContext)_localctx).tr =  new clone_entry(((TraceContext)_localctx).timestamp.t,((TraceContext)_localctx).header.cpu_id,((TraceContext)_localctx).context.cntx.get(0),((TraceContext)_localctx).context.cntx.get(1),((TraceContext)_localctx).fields_entry_clone.field_enc.get(0),((TraceContext)_localctx).fields_entry_clone.field_enc.get(1),((TraceContext)_localctx).fields_entry_clone.field_enc.get(2),((TraceContext)_localctx).fields_entry_clone.field_enc.get(3)); 
+				 ((TraceContext)_localctx).tr =  new clone_entry(((TraceContext)_localctx).timestamp.t,((TraceContext)_localctx).header.cpu_id,((TraceContext)_localctx).context.cntx.get(0),((TraceContext)_localctx).context.cntx.get(1),(((TraceContext)_localctx).clone_flag!=null?((TraceContext)_localctx).clone_flag.getText():null),(((TraceContext)_localctx).newsp!=null?((TraceContext)_localctx).newsp.getText():null),(((TraceContext)_localctx).ptid!=null?((TraceContext)_localctx).ptid.getText():null),(((TraceContext)_localctx).ctid!=null?((TraceContext)_localctx).ctid.getText():null)); 
 				}
 				break;
 			case 2:
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(48);
-				((TraceContext)_localctx).timestamp = timestamp();
-				setState(49);
-				match(HOSTNAME);
-				setState(50);
-				match(EXIT_CLONE);
-				setState(51);
-				match(COL);
-				setState(52);
-				match(LCBRA);
-				setState(53);
-				((TraceContext)_localctx).header = header();
-				setState(54);
-				match(RCBRA);
-				setState(55);
-				match(COM);
 				setState(56);
-				match(LCBRA);
+				((TraceContext)_localctx).timestamp = timestamp();
 				setState(57);
-				((TraceContext)_localctx).context = context();
+				match(HOSTNAME);
 				setState(58);
-				match(RCBRA);
+				match(EXIT_CLONE);
 				setState(59);
-				match(COM);
+				match(COL);
 				setState(60);
 				match(LCBRA);
 				setState(61);
-				((TraceContext)_localctx).fields_exit_clone = fields_exit_clone();
+				((TraceContext)_localctx).header = header();
 				setState(62);
 				match(RCBRA);
-				 ((TraceContext)_localctx).tr =  new clone_exit(((TraceContext)_localctx).timestamp.t,((TraceContext)_localctx).header.cpu_id,((TraceContext)_localctx).context.cntx.get(0),((TraceContext)_localctx).context.cntx.get(1),((TraceContext)_localctx).fields_exit_clone.field_exc); 
+				setState(63);
+				match(COM);
+				setState(64);
+				match(LCBRA);
+				setState(65);
+				((TraceContext)_localctx).context = context();
+				setState(66);
+				match(RCBRA);
+				setState(67);
+				match(COM);
+				setState(68);
+				match(LCBRA);
+				setState(69);
+				match(RET);
+				setState(70);
+				match(EQ);
+				setState(71);
+				((TraceContext)_localctx).ret = match(INT);
+				setState(72);
+				match(RCBRA);
+				 ((TraceContext)_localctx).tr =  new clone_exit(((TraceContext)_localctx).timestamp.t,((TraceContext)_localctx).header.cpu_id,((TraceContext)_localctx).context.cntx.get(0),((TraceContext)_localctx).context.cntx.get(1),(((TraceContext)_localctx).ret!=null?Integer.valueOf(((TraceContext)_localctx).ret.getText()):0)); 
 				}
 				break;
 			case 3:
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(65);
-				((TraceContext)_localctx).timestamp = timestamp();
-				setState(66);
-				match(HOSTNAME);
-				setState(67);
-				match(SCHED_SWITCH);
-				setState(68);
-				match(COL);
-				setState(69);
-				match(LCBRA);
-				setState(70);
-				((TraceContext)_localctx).header = header();
-				setState(71);
-				match(RCBRA);
-				setState(72);
-				match(COM);
-				setState(73);
-				match(LCBRA);
-				setState(74);
-				((TraceContext)_localctx).context = context();
 				setState(75);
-				match(RCBRA);
+				((TraceContext)_localctx).timestamp = timestamp();
 				setState(76);
-				match(COM);
+				match(HOSTNAME);
 				setState(77);
-				match(LCBRA);
+				match(SCHED_SWITCH);
 				setState(78);
-				((TraceContext)_localctx).fields_sched_switch = fields_sched_switch();
+				match(COL);
 				setState(79);
+				match(LCBRA);
+				setState(80);
+				((TraceContext)_localctx).header = header();
+				setState(81);
 				match(RCBRA);
-				 ((TraceContext)_localctx).tr =  new sched_switch(((TraceContext)_localctx).timestamp.t,((TraceContext)_localctx).header.cpu_id,((TraceContext)_localctx).context.cntx.get(0),((TraceContext)_localctx).context.cntx.get(1),((TraceContext)_localctx).fields_sched_switch.field_ss.get(0),((TraceContext)_localctx).fields_sched_switch.field_ss.get(4),((TraceContext)_localctx).fields_sched_switch.field_ss.get(1),((TraceContext)_localctx).fields_sched_switch.field_ss.get(5),((TraceContext)_localctx).fields_sched_switch.field_ss.get(2),((TraceContext)_localctx).fields_sched_switch.field_ss.get(6),((TraceContext)_localctx).fields_sched_switch.field_ss.get(3)); 
+				setState(82);
+				match(COM);
+				setState(83);
+				match(LCBRA);
+				setState(84);
+				((TraceContext)_localctx).context = context();
+				setState(85);
+				match(RCBRA);
+				setState(86);
+				match(COM);
+				setState(87);
+				match(LCBRA);
+				setState(88);
+				match(PREV_COMM);
+				setState(89);
+				match(EQ);
+				setState(90);
+				((TraceContext)_localctx).prev_comm = comm();
+				setState(91);
+				match(COM);
+				setState(92);
+				match(PREV_TID);
+				setState(93);
+				match(EQ);
+				setState(94);
+				((TraceContext)_localctx).prev_tid = match(INT);
+				setState(95);
+				match(COM);
+				setState(96);
+				match(PREV_PRIO);
+				setState(97);
+				match(EQ);
+				setState(98);
+				((TraceContext)_localctx).prev_prio = sint();
+				setState(99);
+				match(COM);
+				setState(100);
+				match(PREV_STATE);
+				setState(101);
+				match(EQ);
+				setState(102);
+				((TraceContext)_localctx).prev_state = match(INT);
+				setState(103);
+				match(COM);
+				setState(104);
+				match(NEXT_COMM);
+				setState(105);
+				match(EQ);
+				setState(106);
+				((TraceContext)_localctx).next_comm = comm();
+				setState(107);
+				match(COM);
+				setState(108);
+				match(NEXT_TID);
+				setState(109);
+				match(EQ);
+				setState(110);
+				((TraceContext)_localctx).next_tid = match(INT);
+				setState(111);
+				match(COM);
+				setState(112);
+				match(NEXT_PRIO);
+				setState(113);
+				match(EQ);
+				setState(114);
+				((TraceContext)_localctx).next_prio = sint();
+				setState(115);
+				match(RCBRA);
+				 ((TraceContext)_localctx).tr =  new sched_switch(((TraceContext)_localctx).timestamp.t,((TraceContext)_localctx).header.cpu_id,((TraceContext)_localctx).context.cntx.get(0),((TraceContext)_localctx).context.cntx.get(1),(((TraceContext)_localctx).prev_comm!=null?_input.getText(((TraceContext)_localctx).prev_comm.start,((TraceContext)_localctx).prev_comm.stop):null),(((TraceContext)_localctx).next_comm!=null?_input.getText(((TraceContext)_localctx).next_comm.start,((TraceContext)_localctx).next_comm.stop):null),(((TraceContext)_localctx).prev_tid!=null?Integer.valueOf(((TraceContext)_localctx).prev_tid.getText()):0),(((TraceContext)_localctx).next_tid!=null?Integer.valueOf(((TraceContext)_localctx).next_tid.getText()):0),(((TraceContext)_localctx).prev_prio!=null?_input.getText(((TraceContext)_localctx).prev_prio.start,((TraceContext)_localctx).prev_prio.stop):null),(((TraceContext)_localctx).next_prio!=null?_input.getText(((TraceContext)_localctx).next_prio.start,((TraceContext)_localctx).next_prio.stop):null),(((TraceContext)_localctx).prev_state!=null?Integer.valueOf(((TraceContext)_localctx).prev_state.getText()):0)); 
 				}
 				break;
 			case 4:
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(82);
+				setState(118);
 				((TraceContext)_localctx).timestamp = timestamp();
-				setState(83);
+				setState(119);
 				match(HOSTNAME);
-				setState(84);
+				setState(120);
 				match(PTASK_TRACEPOINT);
-				setState(85);
+				setState(121);
 				match(COL);
-				setState(86);
+				setState(122);
 				match(LCBRA);
-				setState(87);
+				setState(123);
 				((TraceContext)_localctx).header = header();
-				setState(88);
+				setState(124);
 				match(RCBRA);
-				setState(89);
+				setState(125);
 				match(COM);
-				setState(90);
+				setState(126);
 				match(LCBRA);
-				setState(91);
-				((TraceContext)_localctx).fields_ptask_tracepoint = fields_ptask_tracepoint();
-				setState(92);
+				setState(127);
+				match(PTASK_PID);
+				setState(128);
+				match(EQ);
+				setState(129);
+				((TraceContext)_localctx).pid = match(INT);
+				setState(130);
+				match(COM);
+				setState(131);
+				match(PTASK_TID);
+				setState(132);
+				match(EQ);
+				setState(133);
+				((TraceContext)_localctx).tid = match(INT);
+				setState(134);
+				match(COM);
+				setState(135);
+				match(PTASK_INDEX);
+				setState(136);
+				match(EQ);
+				setState(137);
+				((TraceContext)_localctx).ptask_index = match(INT);
+				setState(138);
+				match(COM);
+				setState(139);
+				match(PTASK_FLAG_F);
+				setState(140);
+				match(EQ);
+				setState(141);
+				((TraceContext)_localctx).ptask_flag = match(PTASK_FLAG);
+				setState(142);
+				match(COM);
+				setState(143);
+				match(PTASK_STATE_F);
+				setState(144);
+				match(EQ);
+				setState(145);
+				((TraceContext)_localctx).ptask_state = match(PTASK_STATE);
+				setState(146);
+				match(COM);
+				setState(147);
+				match(PTASK_TIME);
+				setState(148);
+				match(EQ);
+				setState(149);
+				((TraceContext)_localctx).times = match(INT);
+				setState(150);
+				match(COM);
+				setState(151);
+				match(PTASK_PRIORITY);
+				setState(152);
+				match(EQ);
+				setState(153);
+				((TraceContext)_localctx).ptask_prio = match(INT);
+				setState(154);
+				match(COM);
+				setState(155);
+				match(PTASK_PERIOD);
+				setState(156);
+				match(EQ);
+				setState(157);
+				((TraceContext)_localctx).ptask_peri = match(INT);
+				setState(158);
+				match(COM);
+				setState(159);
+				match(PTASK_DEADLINE);
+				setState(160);
+				match(EQ);
+				setState(161);
+				((TraceContext)_localctx).ptask_dead = match(INT);
+				setState(162);
 				match(RCBRA);
-				 ((TraceContext)_localctx).tr =  new ptask_tracepoint(((TraceContext)_localctx).timestamp.t,((TraceContext)_localctx).header.cpu_id,((TraceContext)_localctx).fields_ptask_tracepoint.field_pt.get(2),((TraceContext)_localctx).fields_ptask_tracepoint.field_pt.get(3),((TraceContext)_localctx).fields_ptask_tracepoint.field_pt.get(0),((TraceContext)_localctx).fields_ptask_tracepoint.field_pt.get(1),((TraceContext)_localctx).fields_ptask_tracepoint.field_pt.get(4),((TraceContext)_localctx).fields_ptask_tracepoint.field_pt.get(5),((TraceContext)_localctx).fields_ptask_tracepoint.field_pt.get(6),((TraceContext)_localctx).fields_ptask_tracepoint.field_pt.get(7),((TraceContext)_localctx).fields_ptask_tracepoint.field_pt.get(8)); 
+				 ((TraceContext)_localctx).tr =  new ptask_tracepoint(((TraceContext)_localctx).timestamp.t,((TraceContext)_localctx).header.cpu_id,(((TraceContext)_localctx).pid!=null?Integer.valueOf(((TraceContext)_localctx).pid.getText()):0),(((TraceContext)_localctx).tid!=null?Integer.valueOf(((TraceContext)_localctx).tid.getText()):0),(((TraceContext)_localctx).ptask_flag!=null?((TraceContext)_localctx).ptask_flag.getText():null),(((TraceContext)_localctx).ptask_state!=null?((TraceContext)_localctx).ptask_state.getText():null),(((TraceContext)_localctx).ptask_index!=null?Integer.valueOf(((TraceContext)_localctx).ptask_index.getText()):0),(((TraceContext)_localctx).times!=null?((TraceContext)_localctx).times.getText():null),(((TraceContext)_localctx).ptask_prio!=null?Integer.valueOf(((TraceContext)_localctx).ptask_prio.getText()):0),(((TraceContext)_localctx).ptask_peri!=null?Integer.valueOf(((TraceContext)_localctx).ptask_peri.getText()):0),(((TraceContext)_localctx).ptask_dead!=null?Integer.valueOf(((TraceContext)_localctx).ptask_dead.getText()):0)); 
 				}
 				break;
 			}
@@ -428,34 +631,32 @@ public class traceParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			{
-			setState(97);
+			setState(167);
 			match(LBRA);
-			setState(98);
+			setState(168);
 			((TimestampContext)_localctx).h = match(INT);
-			setState(99);
+			setState(169);
 			match(COL);
-			setState(100);
+			setState(170);
 			((TimestampContext)_localctx).m = match(INT);
-			setState(101);
+			setState(171);
 			match(COL);
-			setState(102);
+			setState(172);
 			((TimestampContext)_localctx).s = match(INT);
-			setState(103);
+			setState(173);
 			match(DOT);
-			setState(104);
+			setState(174);
 			((TimestampContext)_localctx).os = match(INT);
-			setState(105);
+			setState(175);
 			match(RBRA);
-			setState(106);
+			setState(176);
 			match(LPAR);
-			setState(107);
+			setState(177);
 			match(PLUS);
-			setState(108);
+			setState(178);
 			((TimestampContext)_localctx).delta = match(DELTA);
-			setState(109);
+			setState(179);
 			match(RPAR);
-			}
 			 ((TimestampContext)_localctx).t =  new time_trace((((TimestampContext)_localctx).h!=null?Integer.valueOf(((TimestampContext)_localctx).h.getText()):0),(((TimestampContext)_localctx).m!=null?Integer.valueOf(((TimestampContext)_localctx).m.getText()):0),(((TimestampContext)_localctx).s!=null?Integer.valueOf(((TimestampContext)_localctx).s.getText()):0),(((TimestampContext)_localctx).os!=null?((TimestampContext)_localctx).os.getText():null),(((TimestampContext)_localctx).delta!=null?((TimestampContext)_localctx).delta.getText():null)); 
 			}
 		}
@@ -473,7 +674,7 @@ public class traceParser extends Parser {
 	public static class HeaderContext extends ParserRuleContext {
 		public Integer cpu_id;
 		public Token cpuid;
-		public TerminalNode FIELD1() { return getToken(traceParser.FIELD1, 0); }
+		public TerminalNode CPU_ID() { return getToken(traceParser.CPU_ID, 0); }
 		public TerminalNode EQ() { return getToken(traceParser.EQ, 0); }
 		public TerminalNode INT() { return getToken(traceParser.INT, 0); }
 		public HeaderContext(ParserRuleContext parent, int invokingState) {
@@ -496,11 +697,11 @@ public class traceParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(113);
-			match(FIELD1);
-			setState(114);
+			setState(182);
+			match(CPU_ID);
+			setState(183);
 			match(EQ);
-			setState(115);
+			setState(184);
 			((HeaderContext)_localctx).cpuid = match(INT);
 			 ((HeaderContext)_localctx).cpu_id =  (((HeaderContext)_localctx).cpuid!=null?Integer.valueOf(((HeaderContext)_localctx).cpuid.getText()):0); 
 			}
@@ -520,13 +721,13 @@ public class traceParser extends Parser {
 		public List<Integer> cntx;
 		public Token pid;
 		public Token tid;
-		public TerminalNode FIELD2() { return getToken(traceParser.FIELD2, 0); }
+		public TerminalNode PID() { return getToken(traceParser.PID, 0); }
 		public List<TerminalNode> EQ() { return getTokens(traceParser.EQ); }
 		public TerminalNode EQ(int i) {
 			return getToken(traceParser.EQ, i);
 		}
 		public TerminalNode COM() { return getToken(traceParser.COM, 0); }
-		public TerminalNode FIELD3() { return getToken(traceParser.FIELD3, 0); }
+		public TerminalNode TID() { return getToken(traceParser.TID, 0); }
 		public List<TerminalNode> INT() { return getTokens(traceParser.INT); }
 		public TerminalNode INT(int i) {
 			return getToken(traceParser.INT, i);
@@ -551,23 +752,23 @@ public class traceParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(118);
-			match(FIELD2);
-			setState(119);
+			setState(187);
+			match(PID);
+			setState(188);
 			match(EQ);
-			setState(120);
+			setState(189);
 			((ContextContext)_localctx).pid = match(INT);
-			setState(121);
+			setState(190);
 			match(COM);
-			setState(122);
-			match(FIELD3);
-			setState(123);
+			setState(191);
+			match(TID);
+			setState(192);
 			match(EQ);
-			setState(124);
+			setState(193);
 			((ContextContext)_localctx).tid = match(INT);
 			 ((ContextContext)_localctx).cntx =  new ArrayList<Integer>(2);
-					_localctx.cntx.add(0,(((ContextContext)_localctx).pid!=null?Integer.valueOf(((ContextContext)_localctx).pid.getText()):0));
-					_localctx.cntx.add(1,(((ContextContext)_localctx).tid!=null?Integer.valueOf(((ContextContext)_localctx).tid.getText()):0));
+			        _localctx.cntx.add(0,(((ContextContext)_localctx).pid!=null?Integer.valueOf(((ContextContext)_localctx).pid.getText()):0));
+			        _localctx.cntx.add(1,(((ContextContext)_localctx).tid!=null?Integer.valueOf(((ContextContext)_localctx).tid.getText()):0));
 			}
 		}
 		catch (RecognitionException re) {
@@ -581,408 +782,30 @@ public class traceParser extends Parser {
 		return _localctx;
 	}
 
-	public static class Fields_exit_cloneContext extends ParserRuleContext {
-		public Integer field_exc;
-		public Token ret;
-		public TerminalNode FIELD4() { return getToken(traceParser.FIELD4, 0); }
-		public TerminalNode EQ() { return getToken(traceParser.EQ, 0); }
-		public TerminalNode INT() { return getToken(traceParser.INT, 0); }
-		public Fields_exit_cloneContext(ParserRuleContext parent, int invokingState) {
+	public static class CommContext extends ParserRuleContext {
+		public TerminalNode ID() { return getToken(traceParser.ID, 0); }
+		public CommContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_fields_exit_clone; }
+		@Override public int getRuleIndex() { return RULE_comm; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof traceParserListener ) ((traceParserListener)listener).enterFields_exit_clone(this);
+			if ( listener instanceof traceParserListener ) ((traceParserListener)listener).enterComm(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof traceParserListener ) ((traceParserListener)listener).exitFields_exit_clone(this);
+			if ( listener instanceof traceParserListener ) ((traceParserListener)listener).exitComm(this);
 		}
 	}
 
-	public final Fields_exit_cloneContext fields_exit_clone() throws RecognitionException {
-		Fields_exit_cloneContext _localctx = new Fields_exit_cloneContext(_ctx, getState());
-		enterRule(_localctx, 10, RULE_fields_exit_clone);
+	public final CommContext comm() throws RecognitionException {
+		CommContext _localctx = new CommContext(_ctx, getState());
+		enterRule(_localctx, 10, RULE_comm);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(127);
-			match(FIELD4);
-			setState(128);
-			match(EQ);
-			setState(129);
-			((Fields_exit_cloneContext)_localctx).ret = match(INT);
-			((Fields_exit_cloneContext)_localctx).field_exc =  (((Fields_exit_cloneContext)_localctx).ret!=null?Integer.valueOf(((Fields_exit_cloneContext)_localctx).ret.getText()):0); 
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class Fields_entry_cloneContext extends ParserRuleContext {
-		public List<String> field_enc;
-		public Token clone_flag;
-		public Token newsp;
-		public Token ptid;
-		public Token ctid;
-		public TerminalNode FIELD5() { return getToken(traceParser.FIELD5, 0); }
-		public List<TerminalNode> EQ() { return getTokens(traceParser.EQ); }
-		public TerminalNode EQ(int i) {
-			return getToken(traceParser.EQ, i);
-		}
-		public List<TerminalNode> COM() { return getTokens(traceParser.COM); }
-		public TerminalNode COM(int i) {
-			return getToken(traceParser.COM, i);
-		}
-		public TerminalNode FIELD6() { return getToken(traceParser.FIELD6, 0); }
-		public TerminalNode FIELD7() { return getToken(traceParser.FIELD7, 0); }
-		public TerminalNode FIELD8() { return getToken(traceParser.FIELD8, 0); }
-		public List<TerminalNode> HEX() { return getTokens(traceParser.HEX); }
-		public TerminalNode HEX(int i) {
-			return getToken(traceParser.HEX, i);
-		}
-		public Fields_entry_cloneContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_fields_entry_clone; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof traceParserListener ) ((traceParserListener)listener).enterFields_entry_clone(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof traceParserListener ) ((traceParserListener)listener).exitFields_entry_clone(this);
-		}
-	}
-
-	public final Fields_entry_cloneContext fields_entry_clone() throws RecognitionException {
-		Fields_entry_cloneContext _localctx = new Fields_entry_cloneContext(_ctx, getState());
-		enterRule(_localctx, 12, RULE_fields_entry_clone);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(132);
-			match(FIELD5);
-			setState(133);
-			match(EQ);
-			setState(134);
-			((Fields_entry_cloneContext)_localctx).clone_flag = match(HEX);
-			setState(135);
-			match(COM);
-			setState(136);
-			match(FIELD6);
-			setState(137);
-			match(EQ);
-			setState(138);
-			((Fields_entry_cloneContext)_localctx).newsp = match(HEX);
-			setState(139);
-			match(COM);
-			setState(140);
-			match(FIELD7);
-			setState(141);
-			match(EQ);
-			setState(142);
-			((Fields_entry_cloneContext)_localctx).ptid = match(HEX);
-			setState(143);
-			match(COM);
-			setState(144);
-			match(FIELD8);
-			setState(145);
-			match(EQ);
-			setState(146);
-			((Fields_entry_cloneContext)_localctx).ctid = match(HEX);
-			 ((Fields_entry_cloneContext)_localctx).field_enc =  new ArrayList<String>(4);
-					_localctx.field_enc.add(0,(((Fields_entry_cloneContext)_localctx).clone_flag!=null?((Fields_entry_cloneContext)_localctx).clone_flag.getText():null));
-					_localctx.field_enc.add(1,(((Fields_entry_cloneContext)_localctx).newsp!=null?((Fields_entry_cloneContext)_localctx).newsp.getText():null));
-					_localctx.field_enc.add(2,(((Fields_entry_cloneContext)_localctx).ptid!=null?((Fields_entry_cloneContext)_localctx).ptid.getText():null));
-					_localctx.field_enc.add(3,(((Fields_entry_cloneContext)_localctx).ctid!=null?((Fields_entry_cloneContext)_localctx).ctid.getText():null)); 
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class Fields_sched_switchContext extends ParserRuleContext {
-		public List<String> field_ss;
-		public Token comm;
-		public Token prev_tid;
-		public SintContext prev_prio;
-		public Token prev_state;
-		public Token next_tid;
-		public SintContext next_prio;
-		public TerminalNode FIELD9() { return getToken(traceParser.FIELD9, 0); }
-		public List<TerminalNode> EQ() { return getTokens(traceParser.EQ); }
-		public TerminalNode EQ(int i) {
-			return getToken(traceParser.EQ, i);
-		}
-		public List<TerminalNode> COM() { return getTokens(traceParser.COM); }
-		public TerminalNode COM(int i) {
-			return getToken(traceParser.COM, i);
-		}
-		public TerminalNode FIELD10() { return getToken(traceParser.FIELD10, 0); }
-		public TerminalNode FIELD11() { return getToken(traceParser.FIELD11, 0); }
-		public TerminalNode FIELD12() { return getToken(traceParser.FIELD12, 0); }
-		public TerminalNode FIELD13() { return getToken(traceParser.FIELD13, 0); }
-		public TerminalNode FIELD14() { return getToken(traceParser.FIELD14, 0); }
-		public TerminalNode FIELD15() { return getToken(traceParser.FIELD15, 0); }
-		public List<TerminalNode> COMM() { return getTokens(traceParser.COMM); }
-		public TerminalNode COMM(int i) {
-			return getToken(traceParser.COMM, i);
-		}
-		public List<TerminalNode> INT() { return getTokens(traceParser.INT); }
-		public TerminalNode INT(int i) {
-			return getToken(traceParser.INT, i);
-		}
-		public List<SintContext> sint() {
-			return getRuleContexts(SintContext.class);
-		}
-		public SintContext sint(int i) {
-			return getRuleContext(SintContext.class,i);
-		}
-		public Fields_sched_switchContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_fields_sched_switch; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof traceParserListener ) ((traceParserListener)listener).enterFields_sched_switch(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof traceParserListener ) ((traceParserListener)listener).exitFields_sched_switch(this);
-		}
-	}
-
-	public final Fields_sched_switchContext fields_sched_switch() throws RecognitionException {
-		Fields_sched_switchContext _localctx = new Fields_sched_switchContext(_ctx, getState());
-		enterRule(_localctx, 14, RULE_fields_sched_switch);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(149);
-			match(FIELD9);
-			setState(150);
-			match(EQ);
-			setState(151);
-			((Fields_sched_switchContext)_localctx).comm = match(COMM);
-			setState(152);
-			match(COM);
-			setState(153);
-			match(FIELD10);
-			setState(154);
-			match(EQ);
-			setState(155);
-			((Fields_sched_switchContext)_localctx).prev_tid = match(INT);
-			setState(156);
-			match(COM);
-			setState(157);
-			match(FIELD11);
-			setState(158);
-			match(EQ);
-			setState(159);
-			((Fields_sched_switchContext)_localctx).prev_prio = sint();
-			setState(160);
-			match(COM);
-			setState(161);
-			match(FIELD12);
-			setState(162);
-			match(EQ);
-			setState(163);
-			((Fields_sched_switchContext)_localctx).prev_state = match(INT);
-			setState(164);
-			match(COM);
-			setState(165);
-			match(FIELD13);
-			setState(166);
-			match(EQ);
-			setState(167);
-			((Fields_sched_switchContext)_localctx).comm = match(COMM);
-			setState(168);
-			match(COM);
-			setState(169);
-			match(FIELD14);
-			setState(170);
-			match(EQ);
-			setState(171);
-			((Fields_sched_switchContext)_localctx).next_tid = match(INT);
-			setState(172);
-			match(COM);
-			setState(173);
-			match(FIELD15);
-			setState(174);
-			match(EQ);
-			setState(175);
-			((Fields_sched_switchContext)_localctx).next_prio = sint();
-			 ((Fields_sched_switchContext)_localctx).field_ss =  new ArrayList<String>(7);
-					_localctx.field_ss.add(0,(((Fields_sched_switchContext)_localctx).comm!=null?((Fields_sched_switchContext)_localctx).comm.getText():null));
-					_localctx.field_ss.add(1,(((Fields_sched_switchContext)_localctx).prev_tid!=null?((Fields_sched_switchContext)_localctx).prev_tid.getText():null));
-					_localctx.field_ss.add(2,(((Fields_sched_switchContext)_localctx).prev_prio!=null?_input.getText(((Fields_sched_switchContext)_localctx).prev_prio.start,((Fields_sched_switchContext)_localctx).prev_prio.stop):null));
-					_localctx.field_ss.add(3,(((Fields_sched_switchContext)_localctx).prev_state!=null?((Fields_sched_switchContext)_localctx).prev_state.getText():null));
-					_localctx.field_ss.add(4,(((Fields_sched_switchContext)_localctx).comm!=null?((Fields_sched_switchContext)_localctx).comm.getText():null));
-					_localctx.field_ss.add(5,(((Fields_sched_switchContext)_localctx).next_tid!=null?((Fields_sched_switchContext)_localctx).next_tid.getText():null));
-					_localctx.field_ss.add(6,(((Fields_sched_switchContext)_localctx).next_prio!=null?_input.getText(((Fields_sched_switchContext)_localctx).next_prio.start,((Fields_sched_switchContext)_localctx).next_prio.stop):null)); 
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class Fields_ptask_tracepointContext extends ParserRuleContext {
-		public List<String> field_pt;
-		public Token ptask_flag;
-		public Token ptask_state;
-		public Token pid;
-		public Token tid;
-		public Token ptask_index;
-		public Token times;
-		public Token ptask_prio;
-		public Token ptask_peri;
-		public Token ptask_dead;
-		public TerminalNode FIELD16() { return getToken(traceParser.FIELD16, 0); }
-		public List<TerminalNode> EQ() { return getTokens(traceParser.EQ); }
-		public TerminalNode EQ(int i) {
-			return getToken(traceParser.EQ, i);
-		}
-		public List<TerminalNode> COM() { return getTokens(traceParser.COM); }
-		public TerminalNode COM(int i) {
-			return getToken(traceParser.COM, i);
-		}
-		public TerminalNode FIELD18() { return getToken(traceParser.FIELD18, 0); }
-		public TerminalNode FIELD19() { return getToken(traceParser.FIELD19, 0); }
-		public TerminalNode FIELD20() { return getToken(traceParser.FIELD20, 0); }
-		public TerminalNode FIELD21() { return getToken(traceParser.FIELD21, 0); }
-		public TerminalNode FIELD22() { return getToken(traceParser.FIELD22, 0); }
-		public TerminalNode FIELD23() { return getToken(traceParser.FIELD23, 0); }
-		public TerminalNode FIELD24() { return getToken(traceParser.FIELD24, 0); }
-		public TerminalNode FIELD25() { return getToken(traceParser.FIELD25, 0); }
-		public TerminalNode PTASK_FLAG() { return getToken(traceParser.PTASK_FLAG, 0); }
-		public TerminalNode PTASK_STATE() { return getToken(traceParser.PTASK_STATE, 0); }
-		public List<TerminalNode> INT() { return getTokens(traceParser.INT); }
-		public TerminalNode INT(int i) {
-			return getToken(traceParser.INT, i);
-		}
-		public Fields_ptask_tracepointContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_fields_ptask_tracepoint; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof traceParserListener ) ((traceParserListener)listener).enterFields_ptask_tracepoint(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof traceParserListener ) ((traceParserListener)listener).exitFields_ptask_tracepoint(this);
-		}
-	}
-
-	public final Fields_ptask_tracepointContext fields_ptask_tracepoint() throws RecognitionException {
-		Fields_ptask_tracepointContext _localctx = new Fields_ptask_tracepointContext(_ctx, getState());
-		enterRule(_localctx, 16, RULE_fields_ptask_tracepoint);
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(178);
-			match(FIELD16);
-			setState(179);
-			match(EQ);
-			setState(180);
-			((Fields_ptask_tracepointContext)_localctx).ptask_flag = match(PTASK_FLAG);
-			setState(181);
-			match(COM);
-			setState(182);
-			match(FIELD18);
-			setState(183);
-			match(EQ);
-			setState(184);
-			((Fields_ptask_tracepointContext)_localctx).ptask_state = match(PTASK_STATE);
-			setState(185);
-			match(COM);
-			setState(186);
-			match(FIELD19);
-			setState(187);
-			match(EQ);
-			setState(188);
-			((Fields_ptask_tracepointContext)_localctx).pid = match(INT);
-			setState(189);
-			match(COM);
-			setState(190);
-			match(FIELD20);
-			setState(191);
-			match(EQ);
-			setState(192);
-			((Fields_ptask_tracepointContext)_localctx).tid = match(INT);
-			setState(193);
-			match(COM);
-			setState(194);
-			match(FIELD21);
-			setState(195);
-			match(EQ);
 			setState(196);
-			((Fields_ptask_tracepointContext)_localctx).ptask_index = match(INT);
-			setState(197);
-			match(COM);
-			setState(198);
-			match(FIELD22);
-			setState(199);
-			match(EQ);
-			setState(200);
-			((Fields_ptask_tracepointContext)_localctx).times = match(INT);
-			setState(201);
-			match(COM);
-			setState(202);
-			match(FIELD23);
-			setState(203);
-			match(EQ);
-			setState(204);
-			((Fields_ptask_tracepointContext)_localctx).ptask_prio = match(INT);
-			setState(205);
-			match(COM);
-			setState(206);
-			match(FIELD24);
-			setState(207);
-			match(EQ);
-			setState(208);
-			((Fields_ptask_tracepointContext)_localctx).ptask_peri = match(INT);
-			setState(209);
-			match(COM);
-			setState(210);
-			match(FIELD25);
-			setState(211);
-			match(EQ);
-			setState(212);
-			((Fields_ptask_tracepointContext)_localctx).ptask_dead = match(INT);
-			 ((Fields_ptask_tracepointContext)_localctx).field_pt =  new ArrayList<String>(9);
-					_localctx.field_pt.add(0,(((Fields_ptask_tracepointContext)_localctx).ptask_flag!=null?((Fields_ptask_tracepointContext)_localctx).ptask_flag.getText():null));
-					_localctx.field_pt.add(1,(((Fields_ptask_tracepointContext)_localctx).ptask_state!=null?((Fields_ptask_tracepointContext)_localctx).ptask_state.getText():null));
-					_localctx.field_pt.add(2,(((Fields_ptask_tracepointContext)_localctx).pid!=null?((Fields_ptask_tracepointContext)_localctx).pid.getText():null));
-					_localctx.field_pt.add(3,(((Fields_ptask_tracepointContext)_localctx).tid!=null?((Fields_ptask_tracepointContext)_localctx).tid.getText():null));
-					_localctx.field_pt.add(4,(((Fields_ptask_tracepointContext)_localctx).ptask_index!=null?((Fields_ptask_tracepointContext)_localctx).ptask_index.getText():null));
-					_localctx.field_pt.add(5,(((Fields_ptask_tracepointContext)_localctx).times!=null?((Fields_ptask_tracepointContext)_localctx).times.getText():null));
-					_localctx.field_pt.add(6,(((Fields_ptask_tracepointContext)_localctx).ptask_prio!=null?((Fields_ptask_tracepointContext)_localctx).ptask_prio.getText():null));
-					_localctx.field_pt.add(7,(((Fields_ptask_tracepointContext)_localctx).ptask_peri!=null?((Fields_ptask_tracepointContext)_localctx).ptask_peri.getText():null));
-					_localctx.field_pt.add(8,(((Fields_ptask_tracepointContext)_localctx).ptask_dead!=null?((Fields_ptask_tracepointContext)_localctx).ptask_dead.getText():null)); 
+			match(ID);
 			}
 		}
 		catch (RecognitionException re) {
@@ -1015,12 +838,12 @@ public class traceParser extends Parser {
 
 	public final SintContext sint() throws RecognitionException {
 		SintContext _localctx = new SintContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_sint);
+		enterRule(_localctx, 12, RULE_sint);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(215);
+			setState(198);
 			_la = _input.LA(1);
 			if ( !(_la==INT || _la==SINT) ) {
 			_errHandler.recoverInline(this);
@@ -1044,65 +867,60 @@ public class traceParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\62\u00dc\4\2\t\2"+
-		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
-		"\t\13\3\2\3\2\3\2\3\2\7\2\33\n\2\f\2\16\2\36\13\2\3\2\3\2\3\3\3\3\3\3"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\63\u00cb\4\2\t\2"+
+		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\3\2\3\2\3\2\3\2\7\2\25"+
+		"\n\2\f\2\16\2\30\13\2\3\2\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
-		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3b\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3"+
-		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6"+
-		"\3\6\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\7\3\7\3\7\3\b\3\b\3\b\3\b\3\b\3\b\3"+
-		"\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\b\3\t\3\t\3\t\3\t\3\t\3\t\3\t"+
-		"\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3\t\3"+
-		"\t\3\t\3\t\3\t\3\t\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n"+
-		"\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3\n\3"+
-		"\n\3\n\3\n\3\n\3\n\3\n\3\n\3\13\3\13\3\13\2\2\f\2\4\6\b\n\f\16\20\22\24"+
-		"\2\3\3\2./\2\u00d5\2\26\3\2\2\2\4a\3\2\2\2\6c\3\2\2\2\bs\3\2\2\2\nx\3"+
-		"\2\2\2\f\u0081\3\2\2\2\16\u0086\3\2\2\2\20\u0097\3\2\2\2\22\u00b4\3\2"+
-		"\2\2\24\u00d9\3\2\2\2\26\34\b\2\1\2\27\30\5\4\3\2\30\31\b\2\1\2\31\33"+
-		"\3\2\2\2\32\27\3\2\2\2\33\36\3\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35\37"+
-		"\3\2\2\2\36\34\3\2\2\2\37 \7\2\2\3 \3\3\2\2\2!\"\5\6\4\2\"#\7\61\2\2#"+
-		"$\7\6\2\2$%\7%\2\2%&\7+\2\2&\'\5\b\5\2\'(\7,\2\2()\7&\2\2)*\7+\2\2*+\5"+
-		"\n\6\2+,\7,\2\2,-\7&\2\2-.\7+\2\2./\5\16\b\2/\60\7,\2\2\60\61\b\3\1\2"+
-		"\61b\3\2\2\2\62\63\5\6\4\2\63\64\7\61\2\2\64\65\7\5\2\2\65\66\7%\2\2\66"+
-		"\67\7+\2\2\678\5\b\5\289\7,\2\29:\7&\2\2:;\7+\2\2;<\5\n\6\2<=\7,\2\2="+
-		">\7&\2\2>?\7+\2\2?@\5\f\7\2@A\7,\2\2AB\b\3\1\2Bb\3\2\2\2CD\5\6\4\2DE\7"+
-		"\61\2\2EF\7\4\2\2FG\7%\2\2GH\7+\2\2HI\5\b\5\2IJ\7,\2\2JK\7&\2\2KL\7+\2"+
-		"\2LM\5\n\6\2MN\7,\2\2NO\7&\2\2OP\7+\2\2PQ\5\20\t\2QR\7,\2\2RS\b\3\1\2"+
-		"Sb\3\2\2\2TU\5\6\4\2UV\7\61\2\2VW\7\3\2\2WX\7%\2\2XY\7+\2\2YZ\5\b\5\2"+
-		"Z[\7,\2\2[\\\7&\2\2\\]\7+\2\2]^\5\22\n\2^_\7,\2\2_`\b\3\1\2`b\3\2\2\2"+
-		"a!\3\2\2\2a\62\3\2\2\2aC\3\2\2\2aT\3\2\2\2b\5\3\2\2\2cd\7\'\2\2de\7.\2"+
-		"\2ef\7%\2\2fg\7.\2\2gh\7%\2\2hi\7.\2\2ij\7$\2\2jk\7.\2\2kl\7(\2\2lm\7"+
-		")\2\2mn\7#\2\2no\7-\2\2op\7*\2\2pq\3\2\2\2qr\b\4\1\2r\7\3\2\2\2st\7\7"+
-		"\2\2tu\7\"\2\2uv\7.\2\2vw\b\5\1\2w\t\3\2\2\2xy\7\b\2\2yz\7\"\2\2z{\7."+
-		"\2\2{|\7&\2\2|}\7\t\2\2}~\7\"\2\2~\177\7.\2\2\177\u0080\b\6\1\2\u0080"+
-		"\13\3\2\2\2\u0081\u0082\7\n\2\2\u0082\u0083\7\"\2\2\u0083\u0084\7.\2\2"+
-		"\u0084\u0085\b\7\1\2\u0085\r\3\2\2\2\u0086\u0087\7\13\2\2\u0087\u0088"+
-		"\7\"\2\2\u0088\u0089\7\60\2\2\u0089\u008a\7&\2\2\u008a\u008b\7\f\2\2\u008b"+
-		"\u008c\7\"\2\2\u008c\u008d\7\60\2\2\u008d\u008e\7&\2\2\u008e\u008f\7\r"+
-		"\2\2\u008f\u0090\7\"\2\2\u0090\u0091\7\60\2\2\u0091\u0092\7&\2\2\u0092"+
-		"\u0093\7\16\2\2\u0093\u0094\7\"\2\2\u0094\u0095\7\60\2\2\u0095\u0096\b"+
-		"\b\1\2\u0096\17\3\2\2\2\u0097\u0098\7\17\2\2\u0098\u0099\7\"\2\2\u0099"+
-		"\u009a\7!\2\2\u009a\u009b\7&\2\2\u009b\u009c\7\20\2\2\u009c\u009d\7\""+
-		"\2\2\u009d\u009e\7.\2\2\u009e\u009f\7&\2\2\u009f\u00a0\7\21\2\2\u00a0"+
-		"\u00a1\7\"\2\2\u00a1\u00a2\5\24\13\2\u00a2\u00a3\7&\2\2\u00a3\u00a4\7"+
-		"\22\2\2\u00a4\u00a5\7\"\2\2\u00a5\u00a6\7.\2\2\u00a6\u00a7\7&\2\2\u00a7"+
-		"\u00a8\7\23\2\2\u00a8\u00a9\7\"\2\2\u00a9\u00aa\7!\2\2\u00aa\u00ab\7&"+
-		"\2\2\u00ab\u00ac\7\24\2\2\u00ac\u00ad\7\"\2\2\u00ad\u00ae\7.\2\2\u00ae"+
-		"\u00af\7&\2\2\u00af\u00b0\7\25\2\2\u00b0\u00b1\7\"\2\2\u00b1\u00b2\5\24"+
-		"\13\2\u00b2\u00b3\b\t\1\2\u00b3\21\3\2\2\2\u00b4\u00b5\7\26\2\2\u00b5"+
-		"\u00b6\7\"\2\2\u00b6\u00b7\7 \2\2\u00b7\u00b8\7&\2\2\u00b8\u00b9\7\27"+
-		"\2\2\u00b9\u00ba\7\"\2\2\u00ba\u00bb\7\37\2\2\u00bb\u00bc\7&\2\2\u00bc"+
-		"\u00bd\7\30\2\2\u00bd\u00be\7\"\2\2\u00be\u00bf\7.\2\2\u00bf\u00c0\7&"+
-		"\2\2\u00c0\u00c1\7\31\2\2\u00c1\u00c2\7\"\2\2\u00c2\u00c3\7.\2\2\u00c3"+
-		"\u00c4\7&\2\2\u00c4\u00c5\7\32\2\2\u00c5\u00c6\7\"\2\2\u00c6\u00c7\7."+
-		"\2\2\u00c7\u00c8\7&\2\2\u00c8\u00c9\7\33\2\2\u00c9\u00ca\7\"\2\2\u00ca"+
-		"\u00cb\7.\2\2\u00cb\u00cc\7&\2\2\u00cc\u00cd\7\34\2\2\u00cd\u00ce\7\""+
-		"\2\2\u00ce\u00cf\7.\2\2\u00cf\u00d0\7&\2\2\u00d0\u00d1\7\35\2\2\u00d1"+
-		"\u00d2\7\"\2\2\u00d2\u00d3\7.\2\2\u00d3\u00d4\7&\2\2\u00d4\u00d5\7\36"+
-		"\2\2\u00d5\u00d6\7\"\2\2\u00d6\u00d7\7.\2\2\u00d7\u00d8\b\n\1\2\u00d8"+
-		"\23\3\2\2\2\u00d9\u00da\t\2\2\2\u00da\25\3\2\2\2\4\34a";
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3"+
+		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3\u00a8\n\3\3\4\3\4\3\4\3\4\3\4\3\4\3"+
+		"\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\6\3\6\3\6\3\6"+
+		"\3\6\3\6\3\6\3\6\3\6\3\7\3\7\3\b\3\b\3\b\2\2\t\2\4\6\b\n\f\16\2\3\3\2"+
+		"./\2\u00c7\2\20\3\2\2\2\4\u00a7\3\2\2\2\6\u00a9\3\2\2\2\b\u00b8\3\2\2"+
+		"\2\n\u00bd\3\2\2\2\f\u00c6\3\2\2\2\16\u00c8\3\2\2\2\20\26\b\2\1\2\21\22"+
+		"\5\4\3\2\22\23\b\2\1\2\23\25\3\2\2\2\24\21\3\2\2\2\25\30\3\2\2\2\26\24"+
+		"\3\2\2\2\26\27\3\2\2\2\27\31\3\2\2\2\30\26\3\2\2\2\31\32\7\2\2\3\32\3"+
+		"\3\2\2\2\33\34\5\6\4\2\34\35\7\62\2\2\35\36\7\22\2\2\36\37\7\6\2\2\37"+
+		" \7\f\2\2 !\5\b\5\2!\"\7\r\2\2\"#\7\7\2\2#$\7\f\2\2$%\5\n\6\2%&\7\r\2"+
+		"\2&\'\7\7\2\2\'(\7\f\2\2()\7\27\2\2)*\7\3\2\2*+\7\60\2\2+,\7\7\2\2,-\7"+
+		"\30\2\2-.\7\3\2\2./\7\60\2\2/\60\7\7\2\2\60\61\7\31\2\2\61\62\7\3\2\2"+
+		"\62\63\7\60\2\2\63\64\7\7\2\2\64\65\7\32\2\2\65\66\7\3\2\2\66\67\7\60"+
+		"\2\2\678\7\r\2\289\b\3\1\29\u00a8\3\2\2\2:;\5\6\4\2;<\7\62\2\2<=\7\21"+
+		"\2\2=>\7\6\2\2>?\7\f\2\2?@\5\b\5\2@A\7\r\2\2AB\7\7\2\2BC\7\f\2\2CD\5\n"+
+		"\6\2DE\7\r\2\2EF\7\7\2\2FG\7\f\2\2GH\7\26\2\2HI\7\3\2\2IJ\7.\2\2JK\7\r"+
+		"\2\2KL\b\3\1\2L\u00a8\3\2\2\2MN\5\6\4\2NO\7\62\2\2OP\7\20\2\2PQ\7\6\2"+
+		"\2QR\7\f\2\2RS\5\b\5\2ST\7\r\2\2TU\7\7\2\2UV\7\f\2\2VW\5\n\6\2WX\7\r\2"+
+		"\2XY\7\7\2\2YZ\7\f\2\2Z[\7\33\2\2[\\\7\3\2\2\\]\5\f\7\2]^\7\7\2\2^_\7"+
+		"\34\2\2_`\7\3\2\2`a\7.\2\2ab\7\7\2\2bc\7\35\2\2cd\7\3\2\2de\5\16\b\2e"+
+		"f\7\7\2\2fg\7\36\2\2gh\7\3\2\2hi\7.\2\2ij\7\7\2\2jk\7\37\2\2kl\7\3\2\2"+
+		"lm\5\f\7\2mn\7\7\2\2no\7 \2\2op\7\3\2\2pq\7.\2\2qr\7\7\2\2rs\7!\2\2st"+
+		"\7\3\2\2tu\5\16\b\2uv\7\r\2\2vw\b\3\1\2w\u00a8\3\2\2\2xy\5\6\4\2yz\7\62"+
+		"\2\2z{\7\17\2\2{|\7\6\2\2|}\7\f\2\2}~\5\b\5\2~\177\7\r\2\2\177\u0080\7"+
+		"\7\2\2\u0080\u0081\7\f\2\2\u0081\u0082\7$\2\2\u0082\u0083\7\3\2\2\u0083"+
+		"\u0084\7.\2\2\u0084\u0085\7\7\2\2\u0085\u0086\7%\2\2\u0086\u0087\7\3\2"+
+		"\2\u0087\u0088\7.\2\2\u0088\u0089\7\7\2\2\u0089\u008a\7&\2\2\u008a\u008b"+
+		"\7\3\2\2\u008b\u008c\7.\2\2\u008c\u008d\7\7\2\2\u008d\u008e\7\"\2\2\u008e"+
+		"\u008f\7\3\2\2\u008f\u0090\7,\2\2\u0090\u0091\7\7\2\2\u0091\u0092\7#\2"+
+		"\2\u0092\u0093\7\3\2\2\u0093\u0094\7+\2\2\u0094\u0095\7\7\2\2\u0095\u0096"+
+		"\7\'\2\2\u0096\u0097\7\3\2\2\u0097\u0098\7.\2\2\u0098\u0099\7\7\2\2\u0099"+
+		"\u009a\7(\2\2\u009a\u009b\7\3\2\2\u009b\u009c\7.\2\2\u009c\u009d\7\7\2"+
+		"\2\u009d\u009e\7)\2\2\u009e\u009f\7\3\2\2\u009f\u00a0\7.\2\2\u00a0\u00a1"+
+		"\7\7\2\2\u00a1\u00a2\7*\2\2\u00a2\u00a3\7\3\2\2\u00a3\u00a4\7.\2\2\u00a4"+
+		"\u00a5\7\r\2\2\u00a5\u00a6\b\3\1\2\u00a6\u00a8\3\2\2\2\u00a7\33\3\2\2"+
+		"\2\u00a7:\3\2\2\2\u00a7M\3\2\2\2\u00a7x\3\2\2\2\u00a8\5\3\2\2\2\u00a9"+
+		"\u00aa\7\b\2\2\u00aa\u00ab\7.\2\2\u00ab\u00ac\7\6\2\2\u00ac\u00ad\7.\2"+
+		"\2\u00ad\u00ae\7\6\2\2\u00ae\u00af\7.\2\2\u00af\u00b0\7\5\2\2\u00b0\u00b1"+
+		"\7.\2\2\u00b1\u00b2\7\t\2\2\u00b2\u00b3\7\n\2\2\u00b3\u00b4\7\4\2\2\u00b4"+
+		"\u00b5\7-\2\2\u00b5\u00b6\7\13\2\2\u00b6\u00b7\b\4\1\2\u00b7\7\3\2\2\2"+
+		"\u00b8\u00b9\7\23\2\2\u00b9\u00ba\7\3\2\2\u00ba\u00bb\7.\2\2\u00bb\u00bc"+
+		"\b\5\1\2\u00bc\t\3\2\2\2\u00bd\u00be\7\24\2\2\u00be\u00bf\7\3\2\2\u00bf"+
+		"\u00c0\7.\2\2\u00c0\u00c1\7\7\2\2\u00c1\u00c2\7\25\2\2\u00c2\u00c3\7\3"+
+		"\2\2\u00c3\u00c4\7.\2\2\u00c4\u00c5\b\6\1\2\u00c5\13\3\2\2\2\u00c6\u00c7"+
+		"\7\61\2\2\u00c7\r\3\2\2\2\u00c8\u00c9\t\2\2\2\u00c9\17\3\2\2\2\4\26\u00a7";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

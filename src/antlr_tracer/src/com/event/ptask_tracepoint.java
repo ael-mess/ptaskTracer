@@ -1,26 +1,30 @@
 package com.event;
 
+import java.math.BigInteger;
+
 public class ptask_tracepoint extends userspace_tracepoint {
     protected String flag = null;
     protected String state = null;
     protected Integer index = null;
-    protected Integer times = null;
+    protected Long times = null;
     protected Integer prio = null;
     protected Integer period = null;
     protected Integer deadline = null;
 
-    public ptask_tracepoint(time_trace time, Integer cpu_id, String pid, String tid, String flag, String state, String idx, String tim, String prio, String peri, String dd) {
+    public ptask_tracepoint(time_trace time, Integer cpu_id, Integer pid, Integer tid, String flag, String state, Integer idx, String tim, Integer prio, Integer peri, Integer dd) {
+        BigInteger bigInt = new BigInteger(tim);
+
         this.time = time;
         this.cpu_id = cpu_id;
-        this.pid = Integer.valueOf(pid);
-        this.tid = Integer.valueOf(tid);
+        this.pid = pid;
+        this.tid = tid;
         this.flag = flag;
         this.state = state;
-        this.index = Integer.valueOf(idx);
-        this.times = Integer.valueOf(tim);
-        this.prio = Integer.valueOf(prio);
-        this.period = Integer.valueOf(peri);
-        this.deadline = Integer.valueOf(dd);
+        this.index = idx;
+        if(bigInt.compareTo(BigInteger.valueOf(Long.MAX_VALUE)) > 0) this.times = Long.valueOf(tim);
+        this.prio = prio;
+        this.period = peri;
+        this.deadline = dd;
     }
 
     public String getFlag() {
@@ -35,7 +39,7 @@ public class ptask_tracepoint extends userspace_tracepoint {
         return this.index;
     }
 
-    public Integer getTimes() {
+    public Long getTimes() {
         return this.times;
     }
 

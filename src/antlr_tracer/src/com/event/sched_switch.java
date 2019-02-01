@@ -9,18 +9,18 @@ public class sched_switch extends kernel_tracepoint {
     protected Integer next_prio = null;
     protected Integer prev_state = null;
 
-    public sched_switch(time_trace time, Integer cpu_id, Integer pid, Integer tid, String pcomm, String ncomm, String ptid, String ntid, String pprio, String nprio, String ps) {
+    public sched_switch(time_trace time, Integer cpu_id, Integer pid, Integer tid, String pcomm, String ncomm, Integer ptid, Integer ntid, String pprio, String nprio, Integer ps) {
         this.time = time;
         this.cpu_id = cpu_id;
         this.pid = pid;
         this.tid = tid;
         this.prev_comm = pcomm;
         this.next_comm = ncomm;
-        this.prev_tid = Integer.valueOf(ptid);
-        this.next_tid = Integer.valueOf(ntid);
+        this.prev_tid = ptid;
+        this.next_tid = ntid;
         this.prev_prio = Integer.valueOf(pprio);
         this.next_prio = Integer.valueOf(nprio);
-        this.prev_state = Integer.valueOf(ps);
+        this.prev_state = ps;
     }
 
     public String getPrev_comm() {

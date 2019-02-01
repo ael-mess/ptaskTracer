@@ -10,7 +10,7 @@ public class time_trace {
         this.hour = (double) h;
         this.minute = (double) m;
         this.seconde = (double) s + Double.valueOf("0."+os);
-        this.delta = Double.valueOf(d);
+        if(!d.equals("?.?????????")) this.delta = Double.valueOf(d);
     }
 
     public void setTime(Double h, Double m, Double s, Double d) {

@@ -11,7 +11,7 @@ public class parser_service {
     protected List<trace> traces = new ArrayList<>();
     protected String file_name = null;
 
-    public parser_service(String file_name) {
+    public parser_service(String file_name) throws IOException {
         try {
             CharStream in = CharStreams.fromFileName(file_name);
             traceLexer lexer = new traceLexer(in);
@@ -19,7 +19,7 @@ public class parser_service {
             traceParser parser = new traceParser(tokens);
             this.traces = parser.start().traces;
         } catch (IOException e) {
-               System.err.println("parser_service.const");
+               System.err.println("parser_service.const : file not found "+ file_name);
         }
     }
 

@@ -1,7 +1,5 @@
 package com.task;
 
-enum Types { START, FINISH, SWITCH_IN, SWITCH_OUT }
-
 public class t_event {
     protected Double value = null;
     protected Types type = null;

@@ -3,22 +3,20 @@ package com;
 import com.parser.*;
 import com.event.*;
 import com.task.*;
+import com.printer.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 public class main {
-    public static void main(String[] arg) {
-        parser_service parser = new parser_service("../test2.txt"); //secure path
-        task_service tasks = new task_service();
+    public static void main(String[] arg) throws IOException {
+        parser_service parser = new parser_service("../mytest.txt"); //secure path
+        task_service tasks = new task_service(parser.getTraces());
 
         //System.out.println(parser.description());
-        System.out.println("");
+        //tasks.check();
+        System.err.println(tasks.description());
+        System.err.println("start:"+tasks.getStart()+" end:"+tasks.getEnd()+" nb task:"+tasks.getNb_task());
 
-        tasks.setTraces(parser.getTraces());
-        tasks.setTasks();
-
-        tasks.check();
-        //System.out.println(tasks.description());
+        printer_service printer = new printer_service(tasks);
     }
 }
