@@ -1,4 +1,4 @@
-// Generated from com/parser/traceParser.g4 by ANTLR 4.7.1
+// Generated from src/com/parser/traceParser.g4 by ANTLR 4.7.1
 
 package com.parser;
 import com.event.*;
@@ -768,7 +768,7 @@ public class traceParser extends Parser {
 			((ContextContext)_localctx).tid = match(INT);
 			 ((ContextContext)_localctx).cntx =  new ArrayList<Integer>(2);
 			        _localctx.cntx.add(0,(((ContextContext)_localctx).pid!=null?Integer.valueOf(((ContextContext)_localctx).pid.getText()):0));
-			        _localctx.cntx.add(1,(((ContextContext)_localctx).tid!=null?Integer.valueOf(((ContextContext)_localctx).tid.getText()):0));
+			        _localctx.cntx.add(1,(((ContextContext)_localctx).tid!=null?Integer.valueOf(((ContextContext)_localctx).tid.getText()):0)); 
 			}
 		}
 		catch (RecognitionException re) {

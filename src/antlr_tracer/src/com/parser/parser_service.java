@@ -33,9 +33,10 @@ public class parser_service {
             System.out.println(""+this.traces.size()+" events saved in the trace");
             if(this.traces==null) throw new NullPointerException("Traces List null pointer");
         } catch (IOException e) {
-               throw new FileNotFoundException("Trace file "+file_name+" not found");
+            throw new FileNotFoundException("Trace file "+file_name+" not found");
         } catch (OutOfMemoryError e) {
-               throw new OutOfMemoryError("Java heap space: failed reallocation of scalar replaced objects in "+ file_name);
+            System.err.println("Exception in thread \"main\" java.lang.OutOfMemoryError: Java heap space: failed reallocation (too many events in the trace file)\n        at com.parser.parser_service.<init>(parser_service.java:38)\n        at com.main.main(main.java:21)");
+            System.exit(2);
         }
     }
 
