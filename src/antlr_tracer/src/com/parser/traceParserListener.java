@@ -1,4 +1,4 @@
-// Generated from com/parser/traceParser.g4 by ANTLR 4.7.1
+// Generated from src/com/parser/traceParser.g4 by ANTLR 4.7.1
 
 package com.parser;
 import com.event.*;

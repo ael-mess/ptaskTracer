@@ -43,7 +43,8 @@ public class printer_service {
         } catch(NullPointerException e) {
             throw new NullPointerException("Null pointer parameter");
         } catch (OutOfMemoryError e) {
-               throw new OutOfMemoryError("Java heap space: failed reallocation (too many events in the trace file)");
+            System.err.println("Exception in thread \"main\" java.lang.OutOfMemoryError: Java heap space: failed reallocation (too many events in the trace file)\n        at com.printer.printer_service.<init>(printer_service.java:46)\n        at com.main.main(main.java:30)");
+            System.exit(2);
         }
     }
 
