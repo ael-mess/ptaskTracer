@@ -36,6 +36,10 @@ public class task {
         return this.color;
     }
 
+    public String getColorS() {
+        return "rgb("+this.color.getRed()+","+this.color.getGreen()+","+this.color.getBlue()+")";
+    }
+
     public Integer getCpu_id() {
         return this.cpu_id;
     }
