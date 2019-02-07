@@ -1,9 +1,17 @@
+/****************************************************************************
+* Class:       task()                                                        *
+* Parameters:  all the task thread parameters                                *
+* Autor:       ael-mess                                                      *
+* Description: represents the parameters required for the tasks thread       *
+****************************************************************************/
+
 package com.task;
 
 import java.awt.Color;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 public class task {
     protected Integer id = null;
@@ -93,10 +101,31 @@ public class task {
     }
 
     public String description() {
-        String ret = "id: "+this.getId()+" idx: "+this.getName()+" ("+this.getColor().toString()+this.isActivated()+") cpu id="+this.getCpu_id()+" periode="+this.getPeriod()+" deadline="+this.getDeadline()+" start="+this.getStart()+"\n";
+        String ret = "id: "+this.getId()+" idx: "+this.getName()+" ("+this.getColor().toString()+this.isActivated()+") cpu id="+this.getCpu_id()+" period="+this.getPeriod()+" deadline="+this.getDeadline()+" start="+this.getStart()+"\n";
         ret += "[ ";
         for(t_event ev : this.events) ret += ev.description()+", ";
         ret += "]";
         return ret;
+    }
+
+    // checking if the events are correctly imported (used in task_service)
+    public void check_events() {
+        int job = 0, preep = 0;
+        int job_e = 0, preep_e = 0;
+        boolean started = false;
+        Iterator<t_event> it = this.getEvents().iterator();
+        t_event evt = it.next();
+        while(it.hasNext()) {
+            evt = it.next();
+
+            if(this.getEvents().get(this.getEvents().indexOf(evt)-1).getType().equals(evt.getType())) System.err.println(" bad time event "+this.getEvents().indexOf(evt)+" for next task");
+
+            if(evt.getType().equals(Types.START)) { started = true; job++; }
+            else if(evt.getType().equals(Types.FINISH)) { started = false; job_e++; }
+            else if(evt.getType().equals(Types.SWITCH_IN) && started) preep++;
+            else if(evt.getType().equals(Types.SWITCH_OUT) && started) preep_e++;
+        }
+        System.err.println("  tid: "+this.getId()+" idx: "+this.getName()+" cpu="+this.getCpu_id()+" period="+this.getPeriod()+" deadline="+this.getDeadline()+" start="+this.getStart()+"\n  jobs:"+job+"/"+job_e+" preemption:"+preep+"/"+preep_e);
+        it = null;
     }
 }

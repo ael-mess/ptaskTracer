@@ -1,3 +1,10 @@
+/****************************************************************************
+* Class:       time_trace()                                                  *
+* Parameters:  the time trace parameters                                     *
+* Autor:       ael-mess                                                      *
+* Description: represents the parameters required for timing                 *
+****************************************************************************/
+
 package com.event;
 
 public class time_trace {

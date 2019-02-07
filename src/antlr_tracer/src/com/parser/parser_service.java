@@ -1,3 +1,10 @@
+/****************************************************************************
+* Class:       parser_service()                                              *
+* Parameters:  trace file name of the trace                                  *
+* Autor:       ael-mess                                                      *
+* Description: import traces from file to this java list (of trace objt)     *
+****************************************************************************/
+
 package com.parser;
 import com.event.*;
 
@@ -5,21 +12,29 @@ import org.antlr.v4.runtime.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.lang.NullPointerException;
+import java.lang.OutOfMemoryError;
 
 public class parser_service {
     protected List<trace> traces = new ArrayList<>();
     protected String file_name = null;
 
-    public parser_service(String file_name) throws IOException {
+    public parser_service(String file_name) throws IOException, OutOfMemoryError {
         try {
             CharStream in = CharStreams.fromFileName(file_name);
             traceLexer lexer = new traceLexer(in);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             traceParser parser = new traceParser(tokens);
             this.traces = parser.start().traces;
+
+            if(this.traces==null) throw new NullPointerException("Traces List null pointer");
         } catch (IOException e) {
-               System.err.println("parser_service.const : file not found "+ file_name);
+               throw new FileNotFoundException("Trace file "+file_name+" not found");
+        } catch (OutOfMemoryError e) {
+               throw new OutOfMemoryError("Java heap space: failed reallocation of scalar replaced objects in "+ file_name);
         }
     }
 
