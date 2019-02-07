@@ -25,22 +25,34 @@ public class printer_service {
         try {
             this.tasks = t;
             this.svg = new svggen(t, out);
+            System.out.println("SVG file generated in build/");
             svg.setCanvas();
+            System.out.println("Canvas set");
 
             this.root = this.svg.getDoc().getDocumentElement();
             this.svg.getGraph().getRoot(root);
 
-            this.draw_os();
+            if(this.svg.isOsactive()) this.draw_os();
             this.draw_main();
-            this.draw_tasks();
+            this.draw_tasks(this.svg.isPercpu());
+            System.out.println("threads printed in build/"+this.svg.getApp().getName()+".svg");
             svg.streamOut(root);
+            System.out.println("SVG file saved");
         } catch(NullPointerException e) {
             throw new NullPointerException("Null pointer parameter");
         }
     }
 
+    // for external informations
+    public void Externset(Double scale, Double task_h, Boolean osactive, Boolean cpu) throws NullPointerException {
+        this.svg.setScale(scale);
+        this.svg.setTask_hei(task_h);
+        this.svg.setOsactive(osactive);
+        this.svg.setPercpu(cpu);
+    }
+
     // drawing tasks jobs calling tooltips (param: h) height 6/2 smaller
-    public void draw_tasks() throws IOException {
+    public void draw_tasks(Boolean act) throws NullPointerException {
         double h = this.svg.getOs().size()+ 1.0;
         double w = 0.0;
         double x = 0.0;
@@ -49,6 +61,7 @@ public class printer_service {
         boolean switched = false;
         List<String> text = new ArrayList<>();
         for(task t : this.svg.getTasks()) {
+            if(act) h = this.svg.getOs().size()+ 1.0 + t.getCpu_id();
             text.add(0, "task"+t.getName()+" PID:"+t.getId()+" P:"+t.getPeriod()/1000.0+"ms D:"+t.getDeadline()/1000.0+"ms CPU:"+t.getCpu_id());
             for(t_event t_e : t.getEvents()) {
                 switch(t_e.getType()) {
@@ -62,8 +75,7 @@ public class printer_service {
                             started = false;
                             w = (t_e.getValue() - this.svg.getStart())*this.svg.getScale() - x;
                             text.add(1, text.get(1)+" to "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms");
-                            if(t_e.isPassed()) this.svg.getForm().jobNS(root, this.svg.getDoc(), x, h*y+3.0, w, y-6.0, "green", text);
-                            else if(!t_e.isPassed()) this.svg.getForm().jobNS(root, this.svg.getDoc(), x, h*y-3.0, w, y-6.0, "red", text);
+                            this.svg.getForm().jobNS(root, this.svg.getDoc(), x, h*y+3.0, w, y-6.0, this.getColor(t_e, act, t), text);
                         }
                         break;
                     case SWITCH_OUT :
@@ -71,7 +83,7 @@ public class printer_service {
                             switched = true;
                             w = (t_e.getValue() - this.svg.getStart())*this.svg.getScale() - x;
                             text.add(1, text.get(1)+" to "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms");
-                            this.svg.getForm().jobNS(root, this.svg.getDoc(), x, h*y+3.0, w, y-6.0, "green", text);
+                            this.svg.getForm().jobNS(root, this.svg.getDoc(), x, h*y+3.0, w, y-6.0, this.getColor(t_e, act, t), text);
                         }
                         break;
                     case SWITCH_IN :
@@ -83,13 +95,19 @@ public class printer_service {
                         break;
                 }
             }
-            h += 1.0;
+            if(!act) h += 1.0;
         }
         text = null;
     }
 
+    private String getColor(t_event evt, Boolean act, task t) {
+        if(act) return t.getColorS();
+        else if(evt.getType().equals(Types.SWITCH_OUT) || (evt.isPassed() && evt.getType().equals(Types.FINISH))) return "green";
+        else return "red";
+    }
+
     // drawing main thread (param: h)
-    public void draw_main() throws IOException {
+    public void draw_main() throws NullPointerException {
         double w = 0.0;
         double x = 0.0;
         double h = this.svg.getOs().size();
@@ -120,7 +138,7 @@ public class printer_service {
     }
 
     // drawing os activity (param: h)
-    public void draw_os() throws IOException {
+    public void draw_os() throws NullPointerException {
         double h = 0.0;
         double w = 0.0;
         double x = 0.0;

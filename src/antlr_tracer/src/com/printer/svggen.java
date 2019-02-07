@@ -41,8 +41,11 @@ public class svggen {
     protected Double task_hei = 20.0;
     protected List<task> tasks = null;
     protected List<app> os = null;
+    protected List<Integer> cpu = null;
     protected Writer out = null;
     protected app main = null;
+    protected Boolean osactive = true;
+    protected Boolean percpu = false;
 
     public svggen(task_service serv, String out) throws IOException, NullPointerException {
         try {
@@ -57,9 +60,15 @@ public class svggen {
             this.tasks = serv.getTasks();
             this.main = serv.getMain_task();
             this.os = serv.getOs_task();
+            this.cpu = serv.getCpu();
             this.start = this.os.get(0).getStart();
             this.width = (serv.getEnd() - this.start) * this.scale;
-            this.height = (serv.getNb_task() + 2)* this.task_hei;
+            int nbt = 0, oss = 0;
+            if(percpu) nbt = this.cpu.size();
+            else nbt = serv.getNb_task();
+            if(osactive) oss = this.os.size();
+            else oss = 1;
+            this.height = (nbt + 1 + oss)* this.task_hei;
 
             this.out = new FileWriter(out);
         } catch(IOException e) {
@@ -113,6 +122,30 @@ public class svggen {
         return this.main;
     }
 
+    public Boolean isOsactive() {
+        return this.osactive;
+    }
+
+    public Boolean isPercpu() {
+        return this.percpu;
+    }
+
+    public void setScale(Double scale) {
+        this.scale = scale;
+    }
+
+    public void setTask_hei(Double th) {
+        this.task_hei = th;
+    }
+
+    public void setOsactive(Boolean act) {
+        this.osactive = act;
+    }
+
+    public void setPercpu(Boolean act) {
+        this.percpu = act;
+    }
+
     // setting the canvas with 50/2 height and 100/2 width plus
     public void setCanvas() throws NullPointerException {
         this.svgGenerator.setSVGCanvasSize(new Dimension(this.width.intValue()+1+100, this.height.intValue()+1+50));
@@ -125,14 +158,23 @@ public class svggen {
 
     // setting info text for canvas (param: h, dist from x=0)
     private void setText() throws NullPointerException  {
-        int h = 0;
-        for(app proc: this.os) {
-            this.svgGenerator.drawString("OS CPU:"+proc.getId(), 5.0f, (float)(this.task_hei*(h+0.5)));
-            h++;
+        int h = 1;
+        if(this.osactive) {
+            h = 0;
+            for(app proc: this.os) {
+                this.svgGenerator.drawString("OS CPU:"+proc.getId(), 5.0f, (float)(this.task_hei*(h+0.5)));
+                h++;
+            }
         }
+
         this.svgGenerator.drawString("Main task "+this.main.getName()+"  PID:"+this.main.getId(), 3.0f, (float)(this.task_hei*(h+0.5)));
         h++;
-        for(task t : this.tasks) {
+
+        if(this.percpu) for(Integer id : this.cpu) {
+                this.svgGenerator.drawString("CPU"+id, 3.0f, (float)(this.task_hei*(h+0.5)));
+                h++;
+        }
+        else for(task t : this.tasks) {
             this.svgGenerator.drawString("Task"+t.getName()+"  TID:"+t.getId()+": CPU:"+t.getCpu_id(), 3.0f, (float)(this.task_hei*(h+0.5)));
             this.svgGenerator.drawString("(P:"+t.getPeriod()/1000.0+"ms D:"+t.getDeadline()/1000.0+"ms)", 3.0f, (float)(this.task_hei*(h+0.75)));
             h++;
@@ -145,7 +187,7 @@ public class svggen {
         int h = 1 + os.size();
         int period = 0, deadline = 0;
         Double start = null;
-        for(task t : this.tasks) {
+        if(!this.percpu) for(task t : this.tasks) {
             period = t.getPeriod();
             deadline = t.getDeadline();
             start = t.getStart();
@@ -156,10 +198,12 @@ public class svggen {
             h++;
         }
 
+        period = this.tasks.get(0).getPeriod();
         this.f.axis(this.width, this.height, period*this.scale/1000000.0);
 
         this.svgGenerator.setFont(Font.decode("arial-plain-3"));
-        for(int nb_period=0; ((nb_period/1000000.0)*period*this.scale*2)<this.width; nb_period+=1) this.svgGenerator.drawString(""+String.format("%.3f", ((nb_period/1000.0)*period*2))+"ms", (float)((nb_period/1000000.0)*period*this.scale*2.0f), (float)(this.height+5.0f));
+        for(int nb_period=0; ((nb_period/1000000.0)*period*this.scale*2)<this.width; nb_period+=1)
+            this.svgGenerator.drawString(""+String.format("%.3f", ((nb_period/1000.0)*period*2))+"ms", (float)((nb_period/1000000.0)*period*this.scale*2.0f), (float)(this.height+5.0f));
         this.f.setFont();
 
         start = null;

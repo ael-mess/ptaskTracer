@@ -30,6 +30,7 @@ public class parser_service {
             traceParser parser = new traceParser(tokens);
             this.traces = parser.start().traces;
 
+            System.out.println(""+this.traces.size()+" events saved in the trace");
             if(this.traces==null) throw new NullPointerException("Traces List null pointer");
         } catch (IOException e) {
                throw new FileNotFoundException("Trace file "+file_name+" not found");
