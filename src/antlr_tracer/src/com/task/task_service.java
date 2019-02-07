@@ -34,17 +34,20 @@ public class task_service {
                 if(!cpu.contains(tr.getCpu_id())) this.cpu.add(tr.getCpu_id());
                 if(tr instanceof ptask_tracepoint && !tids.contains(tr.getTid())) tids.add(tr.getTid());
             }
-
             String ret = "Actions performed in cpu: ";
             for(Integer id : this.cpu) ret += id+", ";
             System.out.println(ret);
+
             this.setMain_task();
             this.setOs_task();
             System.out.println("Main thread and system activity set");
             System.out.println("Tracing start from "+this.os.get(0).getStart()+" to "+this.end+" ("+(this.end-this.os.get(0).getStart())+"s)");
+
             for(trace tr : this.traces) if(tr instanceof ptask_tracepoint && tids.remove(tr.getTid())) this.setTask(tr);
             this.nb_task = this.tasks.size();
             System.out.println(""+this.nb_task+" tasks imported");
+
+            if(this.tasks.size()==0) throw new NullPointerException("No tasks detected");
 
             tids = null;
         } catch(NullPointerException e) {

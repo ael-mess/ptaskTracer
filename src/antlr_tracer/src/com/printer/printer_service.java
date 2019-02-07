@@ -9,6 +9,8 @@ package com.printer;
 import com.task.*;
 
 import java.io.IOException;
+import java.lang.OutOfMemoryError;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.Color;
@@ -21,7 +23,7 @@ public class printer_service {
     protected task_service tasks = null;
     protected Element root = null;
 
-    public printer_service(task_service t, String out) throws IOException, NullPointerException {
+    public printer_service(task_service t, String out) throws IOException, NullPointerException, OutOfMemoryError {
         try {
             this.tasks = t;
             this.svg = new svggen(t, out);
@@ -35,11 +37,13 @@ public class printer_service {
             if(this.svg.isOsactive()) this.draw_os();
             this.draw_main();
             this.draw_tasks(this.svg.isPercpu());
-            System.out.println("threads printed in build/"+this.svg.getApp().getName()+".svg");
+            System.out.println("Threads printed in build/"+this.svg.getApp().getName()+".svg");
             svg.streamOut(root);
-            System.out.println("SVG file saved");
+            System.out.println("SVG file savedin build/"+this.svg.getApp().getName()+".svg");
         } catch(NullPointerException e) {
             throw new NullPointerException("Null pointer parameter");
+        } catch (OutOfMemoryError e) {
+               throw new OutOfMemoryError("Java heap space: failed reallocation (too many events in the trace file)");
         }
     }
 
