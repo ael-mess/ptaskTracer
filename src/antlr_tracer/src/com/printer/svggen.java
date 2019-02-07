@@ -1,25 +1,36 @@
+/****************************************************************************
+* Class:       svggen()                                                      *
+* Parameters:  svg generation parameters                                     *
+* Autor:       ael-mess                                                      *
+* Description: creates svg document and sets the canvas and the infos        *
+****************************************************************************/
+
 package com.printer;
 import com.task.*;
 
 import java.io.Writer;
-import java.io.OutputStreamWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.lang.NullPointerException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import java.awt.*;
-import java.awt.geom.*;
+import java.awt.Graphics2D;
+import java.awt.Dimension;
+import java.awt.Font;
 
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.batik.svggen.SVGGeneratorContext;
-import org.apache.batik.dom.GenericDOMImplementation;
+import org.apache.batik.anim.dom.SVGDOMImplementation;
 
-import org.w3c.dom.Document;
+import org.w3c.dom.svg.SVGDocument;
 import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Element;
 
 public class svggen {
-    protected Document doc = null;
+    protected SVGDocument doc = null;
     protected SVGGeneratorContext ctx = null;
     protected SVGGraphics2D svgGenerator = null;
     protected form f = null;
@@ -29,19 +40,41 @@ public class svggen {
     protected Double scale = 1000.0;
     protected Double task_hei = 20.0;
     protected List<task> tasks = null;
+    protected List<app> os = null;
+    protected Writer out = null;
+    protected app main = null;
 
-    public svggen(task_service serv) {
-        DOMImplementation domImpl = GenericDOMImplementation.getDOMImplementation();
-        String svgNS = "http://www.w3.org/2000/svg";
-        this.doc = domImpl.createDocument(svgNS, "svg", null);
-        this.ctx = SVGGeneratorContext.createDefault(this.doc);
-        this.svgGenerator = new SVGGraphics2D(ctx, false);
+    public svggen(task_service serv, String out) throws IOException, NullPointerException {
+        try {
+            DOMImplementation domImpl = SVGDOMImplementation.getDOMImplementation();
+            String svgNS = SVGDOMImplementation.SVG_NAMESPACE_URI;//"http://www.w3.org/2000/svg";
+            this.doc = (SVGDocument) domImpl.createDocument(svgNS, "svg", null);
+            this.ctx = SVGGeneratorContext.createDefault(this.doc);
+            ctx.setComment("SVG created for ptask apps");
+            this.svgGenerator = new SVGGraphics2D(ctx, false);
 
-        this.f = new form((Graphics2D)this.svgGenerator);
-        this.tasks = serv.getTasks();
-        this.start = serv.getStart();
-        this.width = (serv.getEnd() - this.start) * this.scale;
-        this.height = serv.getNb_task() * this.task_hei;
+            this.f = new form((Graphics2D)this.svgGenerator);
+            this.tasks = serv.getTasks();
+            this.main = serv.getMain_task();
+            this.os = serv.getOs_task();
+            this.start = this.os.get(0).getStart();
+            this.width = (serv.getEnd() - this.start) * this.scale;
+            this.height = (serv.getNb_task() + 2)* this.task_hei;
+
+            this.out = new FileWriter(out);
+        } catch(IOException e) {
+            throw new FileNotFoundException("SVG file "+out+" can not be created");
+        } catch(NullPointerException e) {
+            throw new NullPointerException("Null pointer parameter");
+        }
+    }
+
+    public SVGDocument getDoc() {
+        return this.doc;
+    }
+
+    public SVGGraphics2D getGraph() {
+        return this.svgGenerator;
     }
 
     public Double getStart() {
@@ -72,7 +105,16 @@ public class svggen {
         return this.f;
     }
 
-    public void setCanvas() {
+    public List<app> getOs() {
+        return this.os;
+    }
+
+    public app getApp() {
+        return this.main;
+    }
+
+    // setting the canvas with 50/2 height and 100/2 width plus
+    public void setCanvas() throws NullPointerException {
         this.svgGenerator.setSVGCanvasSize(new Dimension(this.width.intValue()+1+100, this.height.intValue()+1+50));
 
         this.svgGenerator.translate(0, 25);
@@ -81,17 +123,26 @@ public class svggen {
         this.setTInfo();
     }
 
-    private void setText() {
+    // setting info text for canvas (param: h, dist from x=0)
+    private void setText() throws NullPointerException  {
         int h = 0;
+        for(app proc: this.os) {
+            this.svgGenerator.drawString("OS CPU:"+proc.getId(), 5.0f, (float)(this.task_hei*(h+0.5)));
+            h++;
+        }
+        this.svgGenerator.drawString("Main task "+this.main.getName()+"  PID:"+this.main.getId(), 3.0f, (float)(this.task_hei*(h+0.5)));
+        h++;
         for(task t : this.tasks) {
-            this.svgGenerator.drawString("Task"+t.getName()+"  TID:"+t.getId()+": CPU:"+t.getCpu_id(), 10.0f, (float)(this.task_hei*(h+0.5)));
-            this.svgGenerator.drawString("(P:"+t.getPeriod()/1000.0+"ms D:"+t.getDeadline()/1000.0+"ms)", 5.0f, (float)(this.task_hei*(h+0.75)));
-            h+=1.0;
+            this.svgGenerator.drawString("Task"+t.getName()+"  TID:"+t.getId()+": CPU:"+t.getCpu_id(), 3.0f, (float)(this.task_hei*(h+0.5)));
+            this.svgGenerator.drawString("(P:"+t.getPeriod()/1000.0+"ms D:"+t.getDeadline()/1000.0+"ms)", 3.0f, (float)(this.task_hei*(h+0.75)));
+            h++;
         }
     }
 
-    private void setTInfo() {
-        int h = 0;
+    // setting period and deadline infos (param: h)
+    // using the last period for axis info (1 for 2 period)
+    private void setTInfo() throws NullPointerException {
+        int h = 1 + os.size();
         int period = 0, deadline = 0;
         Double start = null;
         for(task t : this.tasks) {
@@ -107,22 +158,19 @@ public class svggen {
 
         this.f.axis(this.width, this.height, period*this.scale/1000000.0);
 
-        this.svgGenerator.setFont(Font.decode("arial-plain-2"));
+        this.svgGenerator.setFont(Font.decode("arial-plain-3"));
         for(int nb_period=0; ((nb_period/1000000.0)*period*this.scale*2)<this.width; nb_period+=1) this.svgGenerator.drawString(""+String.format("%.3f", ((nb_period/1000.0)*period*2))+"ms", (float)((nb_period/1000000.0)*period*this.scale*2.0f), (float)(this.height+5.0f));
         this.f.setFont();
 
         start = null;
     }
 
-    public void streamOut() throws IOException {
-        Boolean useCSS = true;
+    public void streamOut(Element root) throws NullPointerException, IOException {
         try {
-            Writer out = new OutputStreamWriter(System.out, "UTF-8");
-            this.svgGenerator.stream(out, useCSS);
-        } catch (IOException e) {
-            System.err.println("streamout.const : file not found ");
+            this.svgGenerator.stream(root, this.out);
+            this.out.close();
+        } catch(IOException e) {
+            throw new FileNotFoundException("SVG file "+this.out+" can not be closed");
         }
-        useCSS = null;
     }
-
 }
