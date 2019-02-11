@@ -22,13 +22,11 @@ public class main {
             System.out.println("[\u001B[32mOK\u001B[0m]");
 
             System.out.println("\n> Analysing the data...");
-            task_service tasks = new task_service(parser.getTraces());
-            tasks.Externset(args[0], Integer.valueOf(args[1]));
+            task_service tasks = new task_service(parser.getTraces(), args);
             System.out.println("[\u001B[32mOK\u001B[0m]");
 
             System.out.println("\n> Generating the SVG...");
-            printer_service printer = new printer_service(tasks, "build/"+args[0]+".svg");
-            printer.Externset(Double.valueOf(args[2]), Double.valueOf(args[3]), Boolean.valueOf(args[4]), Boolean.valueOf(args[5]));
+            printer_service printer = new printer_service(tasks, "build/"+args[0]+".svg", args);
             System.out.println("[\u001B[32mOK\u001B[0m]");
 
             //System.out.println(parser.description());

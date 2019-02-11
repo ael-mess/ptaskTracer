@@ -128,13 +128,13 @@ public class form {
         this.graph.draw(rec);
     }
 
-    public void jobNS(Element root, SVGDocument doc, Double x, Double y, Double width, Double height, String col, List<String> text) {
+    public void jobNS(Element root, SVGDocument doc, Double x, Double y, Double width, Double height, String col, String text1, String text2) {
         Random rand = new Random();
         int id = rand.nextInt(Integer.MAX_VALUE - 1) + 0;
 
         this.recNS = doc.createElementNS(SVGDOMImplementation.SVG_NAMESPACE_URI, "rect");
         this.recNS.setAttributeNS(null, "id", ""+id);
-        this.recNS.setAttributeNS(null, "transform", "translate(50,25)");
+        this.recNS.setAttributeNS(null, "transform", "translate(75,25)");
         this.recNS.setAttributeNS(null, "x", Double.toString(x));
     	this.recNS.setAttributeNS(null, "y", Double.toString(y));
     	this.recNS.setAttributeNS(null, "width", Double.toString(width));
@@ -144,13 +144,13 @@ public class form {
     	this.recNS.setAttributeNS(null, "stroke-width", "0.5px");
 
         root.appendChild(this.recNS);
-        this.jobInfoNS(root, doc, x, y, width, height, id, text);
+        this.jobInfoNS(root, doc, x, y, width, height, id, text1, text2);
         rand = null;
     }
 
-    private void jobInfoNS(Element root, SVGDocument doc, Double x, Double y, Double width, Double height, Integer id, List<String> text) {
+    private void jobInfoNS(Element root, SVGDocument doc, Double x, Double y, Double width, Double height, Integer id, String text1, String text2) {
         this.recNS = doc.createElementNS(SVGDOMImplementation.SVG_NAMESPACE_URI, "rect");
-        this.recNS.setAttributeNS(null, "transform", "translate(50,25)");
+        this.recNS.setAttributeNS(null, "transform", "translate(75,25)");
         this.recNS.setAttributeNS(null, "x", Double.toString(x));
     	this.recNS.setAttributeNS(null, "y", Double.toString(y));
     	this.recNS.setAttributeNS(null, "width", Double.toString(width));
@@ -169,13 +169,13 @@ public class form {
         back.setAttributeNS(null, "height", "12");
         back.setAttributeNS(null, "fill", "white");
         back.setAttributeNS(null, "stroke", "black");
-        back.setAttributeNS(null, "transform", "translate(-25,13)");
+        back.setAttributeNS(null, "transform", "translate(0,13)");
         back.setAttributeNS(null, "stroke-width", "0.5px");
         back.setAttributeNS(null, "visibility", "hidden");
         root.appendChild(back);
 
         this.textNS1 = doc.createElementNS(SVGDOMImplementation.SVG_NAMESPACE_URI, "text");
-        this.textNS1.setAttributeNS(null, "transform", "translate(50,25)");
+        this.textNS1.setAttributeNS(null, "transform", "translate(75,25)");
         this.textNS1.setAttributeNS(null, "x", Double.toString(x));
         this.textNS1.setAttributeNS(null, "y", Double.toString(y-7.0));
         this.textNS1.setAttributeNS(null, "stroke", "none");
@@ -183,10 +183,10 @@ public class form {
         this.textNS1.setAttributeNS(null, "text-anchor", "middle");
         this.textNS1.setAttributeNS(null, "font-family", "arial");
         this.textNS1.setAttributeNS(null, "visibility", "hidden");
-        this.textNS1.setTextContent(text.get(0));
+        this.textNS1.setTextContent(text1);
         root.appendChild(this.textNS1);
         this.textNS2 = doc.createElementNS(SVGDOMImplementation.SVG_NAMESPACE_URI, "text");
-        this.textNS2.setAttributeNS(null, "transform", "translate(50,25)");
+        this.textNS2.setAttributeNS(null, "transform", "translate(75,25)");
         this.textNS2.setAttributeNS(null, "x", Double.toString(x));
         this.textNS2.setAttributeNS(null, "y", Double.toString(y-2.0));
         this.textNS2.setAttributeNS(null, "stroke", "none");
@@ -194,7 +194,7 @@ public class form {
         this.textNS2.setAttributeNS(null, "text-anchor", "middle");
         this.textNS2.setAttributeNS(null, "font-family", "arial");
         this.textNS2.setAttributeNS(null, "visibility", "hidden");
-        this.textNS2.setTextContent(text.get(1));
+        this.textNS2.setTextContent(text2);
         root.appendChild(this.textNS2);
 
         Element set = doc.createElementNS(SVGDOMImplementation.SVG_NAMESPACE_URI, "set");
