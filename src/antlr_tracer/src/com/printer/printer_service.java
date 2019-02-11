@@ -22,21 +22,25 @@ public class printer_service {
     protected svggen svg = null;
     protected task_service tasks = null;
     protected Element root = null;
+    protected Integer curH = 0;
 
-    public printer_service(task_service t, String out) throws IOException, NullPointerException, OutOfMemoryError {
+    public printer_service(task_service t, String out, String[] args) throws IOException, NullPointerException, OutOfMemoryError {
         try {
             this.tasks = t;
             this.svg = new svggen(t, out);
             System.out.println("SVG file generated in build/");
-            svg.setCanvas();
+
+            this.Externset(Double.valueOf(args[2]), Double.valueOf(args[3]), Boolean.valueOf(args[4]), Boolean.valueOf(args[5]));
+            this.svg.setCanvas();
             System.out.println("Canvas set");
 
             this.root = this.svg.getDoc().getDocumentElement();
             this.svg.getGraph().getRoot(root);
 
             if(this.svg.isOsactive()) this.draw_os();
+            else this.curH++;
             this.draw_main();
-            this.draw_tasks(this.svg.isPercpu());
+            this.draw_tasks();
             System.out.println("Threads printed in build/"+this.svg.getApp().getName()+".svg");
             svg.streamOut(root);
             System.out.println("SVG file savedin build/"+this.svg.getApp().getName()+".svg");
@@ -57,120 +61,129 @@ public class printer_service {
     }
 
     // drawing tasks jobs calling tooltips (param: h) height 6/2 smaller
-    public void draw_tasks(Boolean act) throws NullPointerException {
-        double h = this.svg.getOs().size()+ 1.0;
+    public void draw_tasks() throws NullPointerException {
+        int h = this.curH;
         double w = 0.0;
         double x = 0.0;
         double y = this.svg.getTask_hei();
         boolean started = false;
         boolean switched = false;
-        List<String> text = new ArrayList<>();
+        int os_preem = 0;
+        String text1 = "", text2 = "";
         for(task t : this.svg.getTasks()) {
-            if(act) h = this.svg.getOs().size()+ 1.0 + t.getCpu_id();
-            text.add(0, "task"+t.getName()+" PID:"+t.getId()+" P:"+t.getPeriod()/1000.0+"ms D:"+t.getDeadline()/1000.0+"ms CPU:"+t.getCpu_id());
+            if(this.svg.isPercpu()) h = this.curH + t.getCpu_id();
             for(t_event t_e : t.getEvents()) {
                 switch(t_e.getType()) {
                     case START :
                         started = true;
                         x = (t_e.getValue() - this.svg.getStart())*this.svg.getScale();
-                        text.add(1, "from "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms");
+                        text1 = "task"+t.getName()+" PID:"+t.getId()+" P:"+t.getPeriod()/1000.0+"ms D:"+t.getDeadline()/1000.0+"ms CPU:"+t.getCpu_id();
+                        text2 = "from "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms";
+                        os_preem = 0;
                         break;
                     case FINISH :
                         if(started && !switched) {
                             started = false;
                             w = (t_e.getValue() - this.svg.getStart())*this.svg.getScale() - x;
-                            text.add(1, text.get(1)+" to "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms");
-                            this.svg.getForm().jobNS(root, this.svg.getDoc(), x, h*y+3.0, w, y-6.0, this.getColor(t_e, act, t), text);
+                            text1 += " ("+os_preem+" os preem)";
+                            text2 += " to "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms";
+                            this.svg.getForm().jobNS(root, this.svg.getDoc(), x, h*y+3.0, w, y-6.0, this.getColor(t_e, t), text1, text2);
                         }
                         break;
                     case SWITCH_OUT :
                         if(started && !switched) {
-                            switched = true;
-                            w = (t_e.getValue() - this.svg.getStart())*this.svg.getScale() - x;
-                            text.add(1, text.get(1)+" to "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms");
-                            this.svg.getForm().jobNS(root, this.svg.getDoc(), x, h*y+3.0, w, y-6.0, this.getColor(t_e, act, t), text);
+                            if(this.svg.isOsactive() || this.tasks.getTids().contains(t_e.getNp_tid())) {
+                                switched = true;
+                                w = (t_e.getValue() - this.svg.getStart())*this.svg.getScale() - x;
+                                text1 += " ("+os_preem+" os preem)";
+                                text2 += " to "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms";
+                                this.svg.getForm().jobNS(root, this.svg.getDoc(), x, h*y+3.0, w, y-6.0, this.getColor(t_e, t), text1, text2);
+                            }
+                            else os_preem++;
                         }
                         break;
                     case SWITCH_IN :
                         if(started && switched) {
-                            switched = false;
-                            x = (t_e.getValue() - this.svg.getStart())*this.svg.getScale();
-                            text.add(1, "from "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms");
+                            if(this.svg.isOsactive() || this.tasks.getTids().contains(t_e.getNp_tid())) {
+                                switched = false;
+                                x = (t_e.getValue() - this.svg.getStart())*this.svg.getScale();
+                                text1 = "task"+t.getName()+" PID:"+t.getId()+" P:"+t.getPeriod()/1000.0+"ms D:"+t.getDeadline()/1000.0+"ms CPU:"+t.getCpu_id();
+                                text2 = "from "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms";
+                                os_preem = 0;
+                            }
                         }
                         break;
                 }
             }
-            if(!act) h += 1.0;
+            if(!this.svg.isPercpu()) h++;
         }
-        text = null;
     }
 
-    private String getColor(t_event evt, Boolean act, task t) {
-        if(act) return t.getColorS();
-        else if(evt.getType().equals(Types.SWITCH_OUT) || (evt.isPassed() && evt.getType().equals(Types.FINISH))) return "green";
-        else return "red";
+    private String getColor(t_event evt, task t) {
+        if(this.svg.isPercpu() || t.getStart()==null) return t.getColorS();
+        else if(evt.isPassed()!=null && !evt.isPassed()) return "red";
+        else return "green";
     }
 
     // drawing main thread (param: h)
     public void draw_main() throws NullPointerException {
         double w = 0.0;
         double x = 0.0;
-        double h = this.svg.getOs().size();
         double y = this.svg.getTask_hei();
         boolean started = false;
-        List<String> text = new ArrayList<>();
+        String text1 = "", text2 = "";
         for(t_event t_e : this.svg.getApp().getEvents()) {
-            text.add(this.svg.getApp().getName()+" PID:"+this.svg.getApp().getId()+" CPU:"+this.svg.getApp().getCpu_id());
+            text1 = ""+this.svg.getApp().getName()+" PID:"+this.svg.getApp().getId()+" CPU:"+this.svg.getApp().getCpu_id();
             switch(t_e.getType()) {
                 case SWITCH_OUT :
                     if(started) {
+                        text2 += " to "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms";
                         started = false;
                         w = (t_e.getValue() - this.svg.getStart())*this.svg.getScale() - x;
-                        text.add(1, text.get(1)+" to "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms");
-                        this.svg.getForm().jobNS(root, this.svg.getDoc(), x, h*y, w, y, "blue", text);
+                        this.svg.getForm().jobNS(root, this.svg.getDoc(), x, this.curH*y, w, y, "blue", text1, text2);
                     }
                     break;
                 case SWITCH_IN :
                     if(!started) {
+                        text2 = "from "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms";
                         started = true;
                         x = (t_e.getValue() - this.svg.getStart())*this.svg.getScale();
-                        text.add(1, "from "+((t_e.getValue()-this.svg.getStart())*1000.0)+"ms");
                     }
                     break;
             }
         }
-        text = null;
+        this.curH++;
     }
 
     // drawing os activity (param: h)
     public void draw_os() throws NullPointerException {
-        double h = 0.0;
         double w = 0.0;
         double x = 0.0;
         double y = this.svg.getTask_hei();
         boolean started = false;
-        List<String> text = new ArrayList<>();
+        String text1 = "", text2 = "";
+        this.curH = 0;
         for(app proc : this.svg.getOs()) {
             for(t_event t_e : proc.getEvents()) {
                 switch(t_e.getType()) {
                     case SWITCH_OUT :
                         if(started) {
-                            text.add(1, "last: "+t_e.getNp_name()+" TID:"+t_e.getNp_tid());
+                            text2 = "last: "+t_e.getNp_name()+" TID:"+t_e.getNp_tid();
                             started = false;
                             w = (t_e.getValue() - this.svg.getStart())*this.svg.getScale() - x;
-                            this.svg.getForm().jobNS(root, this.svg.getDoc(), x, h*y, w, y, "blue", text);
+                            this.svg.getForm().jobNS(root, this.svg.getDoc(), x, this.curH*y, w, y, "blue", text1, text2);
                         }
                         break;
                     case SWITCH_IN :
                         if(!started) {
-                            text.add(0, "first: "+t_e.getNp_name()+" TID:"+t_e.getNp_tid());
+                            text1 = "first: "+t_e.getNp_name()+" TID:"+t_e.getNp_tid();
                             started = true;
                             x = (t_e.getValue() - this.svg.getStart())*this.svg.getScale();
                         }
                         break;
                 }
             }
+            this.curH++;
         }
-        text = null;
     }
 }

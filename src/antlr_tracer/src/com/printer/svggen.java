@@ -46,6 +46,7 @@ public class svggen {
     protected app main = null;
     protected Boolean osactive = true;
     protected Boolean percpu = false;
+    protected Integer curH = 0;
 
     public svggen(task_service serv, String out) throws IOException, NullPointerException {
         try {
@@ -62,13 +63,7 @@ public class svggen {
             this.os = serv.getOs_task();
             this.cpu = serv.getCpu();
             this.start = this.os.get(0).getStart();
-            this.width = (serv.getEnd() - this.start) * this.scale;
-            int nbt = 0, oss = 0;
-            if(percpu) nbt = this.cpu.size();
-            else nbt = serv.getNb_task();
-            if(osactive) oss = this.os.size();
-            else oss = 1;
-            this.height = (nbt + 1 + oss)* this.task_hei;
+            this.width = (serv.getEnd() - this.start);
 
             this.out = new FileWriter(out);
         } catch(IOException e) {
@@ -122,6 +117,23 @@ public class svggen {
         return this.main;
     }
 
+    public Integer getCurH() {
+        return this.curH;
+    }
+
+    public void setHeight() {
+        int nbt = 0, oss = 0;
+        if(this.percpu) nbt = this.cpu.size();
+        else nbt = tasks.size();
+        if(this.osactive) oss = this.os.size();
+        else oss = 1;
+        this.height = (nbt + 1 + oss)* this.task_hei;
+    }
+
+    public void setWidth() {
+        this.width = this.width * this.scale;
+    }
+
     public Boolean isOsactive() {
         return this.osactive;
     }
@@ -146,57 +158,61 @@ public class svggen {
         this.percpu = act;
     }
 
-    // setting the canvas with 50/2 height and 100/2 width plus
+    // setting the canvas with 50/2 height and 150/2 width plus
     public void setCanvas() throws NullPointerException {
-        this.svgGenerator.setSVGCanvasSize(new Dimension(this.width.intValue()+1+100, this.height.intValue()+1+50));
+        this.setHeight();
+        this.setWidth();
+        this.svgGenerator.setSVGCanvasSize(new Dimension(this.width.intValue()+1+150, this.height.intValue()+1+50));
 
         this.svgGenerator.translate(0, 25);
         this.setText();
-        this.svgGenerator.translate(50, 0);
+        this.svgGenerator.translate(75, 0);
         this.setTInfo();
     }
 
     // setting info text for canvas (param: h, dist from x=0)
     private void setText() throws NullPointerException  {
-        int h = 1;
-        if(this.osactive) {
-            h = 0;
-            for(app proc: this.os) {
-                this.svgGenerator.drawString("OS CPU:"+proc.getId(), 5.0f, (float)(this.task_hei*(h+0.5)));
-                h++;
-            }
+        this.curH = 0;
+        if(this.osactive) for(app proc: this.os) {
+            this.svgGenerator.drawString("OS CPU:"+proc.getId(), 5.0f, (float)(this.task_hei*(this.curH+0.5)));
+            this.curH++;
         }
+        else this.curH++;
 
-        this.svgGenerator.drawString("Main task "+this.main.getName()+"  PID:"+this.main.getId(), 3.0f, (float)(this.task_hei*(h+0.5)));
-        h++;
+        this.svgGenerator.drawString("Main task "+this.main.getName()+"  PID:"+this.main.getId(), 3.0f, (float)(this.task_hei*(this.curH+0.5)));
+        this.curH++;
 
         if(this.percpu) for(Integer id : this.cpu) {
-                this.svgGenerator.drawString("CPU"+id, 3.0f, (float)(this.task_hei*(h+0.5)));
-                h++;
+                this.svgGenerator.drawString("CPU"+id, 3.0f, (float)(this.task_hei*(this.curH+0.5)));
+                this.curH++;
         }
         else for(task t : this.tasks) {
-            this.svgGenerator.drawString("Task"+t.getName()+"  TID:"+t.getId()+": CPU:"+t.getCpu_id(), 3.0f, (float)(this.task_hei*(h+0.5)));
-            this.svgGenerator.drawString("(P:"+t.getPeriod()/1000.0+"ms D:"+t.getDeadline()/1000.0+"ms)", 3.0f, (float)(this.task_hei*(h+0.75)));
-            h++;
+            this.svgGenerator.drawString("Task"+t.getName()+"  TID:"+t.getId()+": CPU:"+t.getCpu_id(), 3.0f, (float)(this.task_hei*(this.curH+0.5)));
+            this.svgGenerator.drawString("(P:"+t.getPeriod()/1000.0+"ms D:"+t.getDeadline()/1000.0+"ms)", 3.0f, (float)(this.task_hei*(this.curH+0.75)));
+            this.curH++;
         }
     }
 
     // setting period and deadline infos (param: h)
     // using the last period for axis info (1 for 2 period)
     private void setTInfo() throws NullPointerException {
-        int h = 1 + os.size();
+        this.curH = 0;
         int period = 0, deadline = 0;
         Double start = null;
-        if(!this.percpu) for(task t : this.tasks) {
-            period = t.getPeriod();
-            deadline = t.getDeadline();
-            start = t.getStart();
-            if(period != 0 && deadline != 0 && start!=null) for(int nb_period=0; ((start-this.start+((nb_period/1000000.0)*period))*this.scale)<this.width; nb_period++) {
-                this.f.wakeLine((start - this.start + (nb_period/1000000.0)*period)*this.scale, (1+h)*this.task_hei, h*this.task_hei);
-                this.f.deadLine((start - this.start + (nb_period/1000000.0)*deadline)*this.scale, (1+h)*this.task_hei,  h*this.task_hei);
+        if(!this.percpu) {
+            this.curH = 1 + os.size();
+            for(task t : this.tasks) {
+                period = t.getPeriod();
+                deadline = t.getDeadline();
+                start = t.getStart();
+                if(period != 0 && deadline != 0 && start!=null) for(int nb_period=0; ((start-this.start+((nb_period/1000000.0)*period))*this.scale)<this.width; nb_period++) {
+                    this.f.wakeLine((start - this.start + (nb_period/1000000.0)*period)*this.scale, (1+this.curH)*this.task_hei, this.curH*this.task_hei);
+                    this.f.deadLine((start - this.start + (nb_period/1000000.0)*deadline)*this.scale, (1+this.curH)*this.task_hei,  this.curH*this.task_hei);
+                }
+            this.curH++;
             }
-            h++;
         }
+        else this.curH++;
 
         period = this.tasks.get(0).getPeriod();
         this.f.axis(this.width, this.height, period*this.scale/1000000.0);
