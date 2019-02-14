@@ -74,14 +74,6 @@ echo -e "[\033[0;32mOK\033[0m]"
 
 echo ""
 echo -e "\033[0;35m> Instaling LTTng...\033[0m"
-#instaling LTTng
-#sudo apt-add-repository ppa:lttng/stable-2.10
-#apt-get update
-#if [ $? -eq 1 ]; then
-#    echo "apt repository not updated"
-#    exit 1
-#fi
-#echo -e "\033[0;32mapt repository updated with ppa:lttng/stable-2.10\033[0m"
 sudo apt-get install lttng-tools
 if [ $? -eq 1 ]; then
     echo "lttng-tools not installed"
