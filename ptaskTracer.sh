@@ -96,9 +96,9 @@ if [[ "$HELP" = true ]]; then # showing help
     echo "With option --old no tracing is performed, the trace analysed will be build/[APP_NAME]_raw.txt"
     echo "These parameters are optional :"
     echo "<-o|--output OUTPUT> to specifie directory where all output in build/ is generated"
-    echo "<-i|--input INPUT> to specifie directory the old build/[APP_NAME]_raw.txt"
+    echo "<-i|--input INPUT> to specifie directory of old build/[APP_NAME]_raw.txt"
     echo "<-t|--time TRACING_TIME> for tracing time in second, must be unsigned double  (default: 4s)"
-    echo "<-s|--scale PRINT_SCALE> for printing scale must be unsigned double  (default: 1000.0px/s)"
+    echo "<-s|--scale PRINT_SCALE> for printing scale, must be unsigned double  (default: 1000.0px/s)"
     echo "<-h|--theight TASK_HEIGTH> for printing task height in px, must be unsigned double  (default: 20.0px)"
     echo "<-os|--osapp> to trace system activity (default: false)"
     echo "<-g|--group> to group tasks by cpu (default: false)"
@@ -239,7 +239,7 @@ if [[ -z "$OLD" ]]; then
         mkdir ${OUT}/build
     fi
     sudo rm -rf ${OUT}/build/lttng-traces/${APP}* 2 > /dev/null
-    sudo lttng-sessiond --daemonize
+    #sudo lttng-sessiond --daemonize
     sudo lttng create ${APP} --output=${OUT}/build/lttng-traces/${APP}
     if [ $? -eq 1 ]; then
         echo "lttng create error: tracing session ${APP} not created"
