@@ -1,4 +1,0 @@
-[12:20:16.002620588] (+0.000004208) debian-vm syscall_exit_clone: { cpu_id = 0 }, { pid = 16226, tid = 16308 }, { ret = 0 }
-[12:20:16.002593777] (+0.000034078) debian-vm syscall_entry_clone: { cpu_id = 0 }, { pid = 16226, tid = 16226 }, { clone_flags = 0x3D0F00, newsp = 0x7FC06FF5CF70, parent_tid = 0x7FC06FF5D9D0, child_tid = 0x7FC06FF5D9D0 }
-[12:20:16.842354195] (+0.000009715) debian-vm ptask_provider:ptask_tracepoint: { cpu_id = 0 }, { ptask_flag = "DEFERRED", ptask_state = "b_wait_period", ptask_pid = 16226, ptask_tid = 16308, ptask_index = 0, ptask_time = 150276421, ptask_priority = 80, ptask_period = 20000, ptask_deadline = 20000 }
-[12:20:16.842358357] (+0.000004162) debian-vm sched_switch: { cpu_id = 0 }, { pid = 16226, tid = 16308 }, { prev_comm = "ball", prev_tid = 16308, prev_prio = -81, prev_state = 1, next_comm = "ball", next_tid = 16309, next_prio = 20 }
