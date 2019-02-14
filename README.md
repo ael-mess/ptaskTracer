@@ -30,15 +30,15 @@ ptaskTracer is a tool that traces the execution of periodic and aperiodic tasks 
 To install Lttng 2.10, download ANTLR4 4.7.2, Batik 1.10 and w3c jar lib libraries, compile and install the tool, run (from the repository ):
 
 ```shell
-$ ./install.sh
+$ sudo ./install.sh
 ```
 
 On Ubuntu systems, add stable 2.10 PPA repository before :
 
 ```shell
-$ apt-add-repository ppa:lttng/stable-2.10
-$ apt-get update
-$ ./install.sh
+$ sudo apt-add-repository ppa:lttng/stable-2.10
+$ sudo apt-get update
+$ sudo ./install.sh
 ```
 
 Make sure <code>lttng-tools</code>, <code>lttng-modules</code>, and <code>liblttng-ust</code> are installed before running the application.
@@ -54,13 +54,13 @@ $ sudo lttng-sessiond --daemonize
 Start the application :
 
 ```shell
-$ ptaskTracer -f|--file [APP_NAME] <-p|--path APP_PATH> <-t|--time TRACING_TIME> <-s|--scale PRINT_SCALE> <-h|--theight TASK_HEIGTH> <-os|--osapp> <-g|--group> <-o|--output OUTPUT>
+$ sudo ptaskTracer -f|--file [APP_NAME] <-p|--path APP_PATH> <-t|--time TRACING_TIME> <-s|--scale PRINT_SCALE> <-h|--theight TASK_HEIGTH> <-os|--osapp> <-g|--group> <-o|--output OUTPUT>
 ```
 
 or
 
 ```shell
-$ ptaskTracer --old -f|--file [APP_NAME] <-s|--scale PRINT_SCALE> <-h|--theight TASK_HEIGTH> <-os|--osapp> <-g|--group> <-i|--input INPUT>
+$ sudo ptaskTracer --old -f|--file [APP_NAME] <-s|--scale PRINT_SCALE> <-h|--theight TASK_HEIGTH> <-os|--osapp> <-g|--group> <-i|--input INPUT>
 ```
 
 With the option <code>--old</code>, no tracing is performed, the trace analysed will be  <code>INPUT/build/[APP_NAME]_raw.txt </code>
