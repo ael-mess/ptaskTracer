@@ -229,8 +229,6 @@ public class svggen {
         for(int nb_period=0; ((nb_period/1000000.0)*period*this.scale*2)<this.width; nb_period+=1)
             this.svgGenerator.drawString(""+String.format("%.3f", ((nb_period/1000.0)*period*2))+"ms", (float)((nb_period/1000000.0)*period*this.scale*2.0f), (float)(this.height+5.0f));
         this.f.setFont();
-
-        start = null;
     }
 
     public void streamOut(Element root) throws NullPointerException, IOException {
