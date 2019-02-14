@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Package-Name: com
+Main-Class: com.main
+Class-Path: /usr/local/lib/w3c.jar /usr/local/lib/antlr-4.7.2-complete.jar /usr/local/lib/batik-1.10/lib/batik-all-1.10.jar
