@@ -31,7 +31,6 @@ public class main {
 
             //System.out.println(parser.description());
             //System.out.println(tasks.description());
-            //tasks.check();
         }
         else throw new IllegalArgumentException("Bad arguments or number of arguments");
     }

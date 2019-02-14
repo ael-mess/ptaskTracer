@@ -205,7 +205,8 @@ public class svggen {
         int period = 0, deadline = 0;
         Double start = null;
         if(!this.percpu) {
-            this.curH = 1 + os.size();
+            if(this.osactive) this.curH = 1 + os.size();
+            else this.curH = 2;
             for(Integer id : this.cpu) {
                 this.f.line(this.curH*this.task_hei, this.width);
                 for(task t : this.tasks) if(t.getCpu_id().equals(id)) {
