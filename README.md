@@ -7,7 +7,7 @@ Tracing tool for periodic and aperiodic real-time tasks of ptask API.
 ## Introduction
 
 ptaskTracer is a tool that traces the execution of periodic and aperiodic tasks created with the [API ptask](https://github.com/glipari/ptask), analyses the traces, and generates a SVG of the scheduling of the threads. The tool uses :
-- [LTTng](https://github.com/lttng), an open source software toolkit which can be used to trace the Linux kernel, user applications, and user libraries ; 
+- [LTTng](https://github.com/lttng), an open source software toolkit which can be used to trace the Linux kernel, user applications, and user libraries. 
 - [ANTLR4](https://github.com/antlr/antlr4), a parser generator for reading, processing, executing, or translating structured text or binary files.
 - [Batik](https://github.com/apache/batik), a Java-based toolkit for applications or applets that want to use SVG images format.
 
