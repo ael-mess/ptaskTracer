@@ -1,3 +1,5 @@
+//cmake ptask with -DTRACE=ON option
+
 #include "ptask.h"
 #include "calibrate.h"
 #include <pthread.h>
