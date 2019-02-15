@@ -215,7 +215,7 @@ public class svggen {
                     start = t.getStart();
                     if(period != 0 && deadline != 0 && start!=null) for(int nb_period=0; ((start-this.start+((nb_period/1000000.0)*period))*this.scale)<this.width; nb_period++) {
                         this.f.wakeLine((start - this.start + (nb_period/1000000.0)*period)*this.scale, (1+this.curH)*this.task_hei, this.curH*this.task_hei);
-                        this.f.deadLine((start - this.start + ((nb_period+1)/1000000.0)*deadline)*this.scale, (1+this.curH)*this.task_hei,  this.curH*this.task_hei);
+                        this.f.deadLine((start - this.start + ((nb_period*period+deadline)/1000000.0))*this.scale, (1+this.curH)*this.task_hei, this.curH*this.task_hei);
                     }
                 this.curH++;
                 }

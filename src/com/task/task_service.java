@@ -146,7 +146,7 @@ public class task_service {
         List<t_event> events = new ArrayList<>();
         int i = 0, idx = 0;
         boolean once = true;
-        Double deadline = t.getDeadline()*1.0;
+        Double period = 0.0;
         for(trace tr : this.traces) {
             i = 0;
             if(t.getId().equals(tr.getTid())) {
@@ -158,33 +158,33 @@ public class task_service {
                     if(((ptask_tracepoint) tr).getFlag().equals("\"NOW\"")) {
                         t.setState(true);
                         if(once && t.getStart()!=null) events.add(idx, new t_event(Types.START, t.getStart()));
-                        if(once) deadline = t.getDeadline()*1.0;
+                        if(once) period = 0.0;
                         once = false;
                     }
                     i++;
 
                     if(t.isActivated()) {
                         if(((ptask_tracepoint) tr).getState().equals("\"b_wait_period\"")) {
-                            if(t.getStart() != null) events.add(new t_event(Types.FINISH, tr.getTime().getTime("seconde"), (tr.getTime().getTime("seconde")-t.getStart())<(deadline/1000000.0)));
+                            if(t.getStart() != null) events.add(new t_event(Types.FINISH, tr.getTime().getTime("seconde"), (tr.getTime().getTime("seconde")-t.getStart())<((period+t.getDeadline())/1000000.0)));
                             else events.add(new t_event(Types.FINISH, tr.getTime().getTime("seconde")));
                         }
                         else if(((ptask_tracepoint) tr).getState().equals("\"e_wait_period\"")) {
                             events.add(new t_event(Types.START, tr.getTime().getTime("seconde")));
-                            deadline += t.getDeadline();
+                            period += t.getPeriod();
                         }
                         else if(((ptask_tracepoint) tr).getState().equals("\"b_wait_activation\"")) {
-                            if(t.getStart() != null) events.add(new t_event(Types.FINISH, tr.getTime().getTime("seconde"), (tr.getTime().getTime("seconde")-t.getStart())<(deadline/1000000.0)));
+                            if(t.getStart() != null) events.add(new t_event(Types.FINISH, tr.getTime().getTime("seconde"), (tr.getTime().getTime("seconde")-t.getStart())<((period+t.getDeadline())/1000000.0)));
                             else events.add(new t_event(Types.FINISH, tr.getTime().getTime("seconde")));
                         }
                         else if(((ptask_tracepoint) tr).getState().equals("\"e_wait_activation\"")) {
                             events.add(new t_event(Types.START, tr.getTime().getTime("seconde")));
-                            deadline += t.getDeadline();
+                            period += t.getPeriod();
                         }
                     }
                     else if(((ptask_tracepoint) tr).getState().equals("\"e_wait_activation\"")) {
                         t.setState(true);
                         events.add(new t_event(Types.START, tr.getTime().getTime("seconde")));
-                        deadline = t.getDeadline()*1.0;
+                        period = 0.0;
                     }
                 }
                 else if(tr instanceof sched_switch) {
