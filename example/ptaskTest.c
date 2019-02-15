@@ -22,7 +22,7 @@ void init() {
 
 void task() {
     while (1) {
-        work_for(5, MILLI);
+        work_for(TT, MILLI);
         ptask_wait_for_period();
     }
 }

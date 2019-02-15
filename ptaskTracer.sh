@@ -329,6 +329,7 @@ if [[ -z "$OLD" ]]; then
         sudo babeltrace ${OUT}/build/lttng-traces/${APP}* > ${OUT}/build/${APP}_raw.txt
         if [ $? -eq 1 ]; then
             echo "Trace cannot be read"
+            exit 1
         fi
     else
         sudo babeltrace ${OUT}/build/lttng-traces/${APP}* | sed '/ptask_tracepoint\|exit_clone.*pid\ =\ '"${PID}"'\|exit_clone.*ret\ =\ '"${PID}"'\|sched_switch.*prev_comm\ =\ \"'"${APP}"'\".*next_comm\ =\ \"'"${APP}"'\"\|sched_switch.*pid\ =\ '"${PID}"'/!d' > ${OUT}/build/${APP}_raw.txt
@@ -357,7 +358,9 @@ if [ $RET -ne 0 ]; then # redoing for exit(2)
     elif [ $RET -eq 2 ]; then
         echo "For java.lang.OutOfMemoryError, reduce de size of ${OUT}/build/${APP}_raw.txt"
         echo "And redo the command with option --old"
+        sudo chown -R $(whoami) ${OUT}/build/*
         exit 0
     fi
 fi
+sudo chown -R $(whoami) ${OUT}/build/*
 exit 0
