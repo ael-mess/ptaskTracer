@@ -147,6 +147,7 @@ public class task_service {
         int i = 0, idx = 0;
         boolean once = true;
         Double period = 0.0;
+        Double defwake = 0.0;
         for(trace tr : this.traces) {
             i = 0;
             if(t.getId().equals(tr.getTid())) {
@@ -167,25 +168,29 @@ public class task_service {
                         if(((ptask_tracepoint) tr).getState().equals("\"b_wait_period\"")) {
                             if(t.getStart() != null) events.add(new t_event(Types.FINISH, tr.getTime().getTime("seconde"), (tr.getTime().getTime("seconde")-t.getStart())<((period+t.getDeadline())/1000000.0)));
                             else events.add(new t_event(Types.FINISH, tr.getTime().getTime("seconde")));
+                            t.setPeriodic(true);
                         }
                         else if(((ptask_tracepoint) tr).getState().equals("\"e_wait_period\"")) {
                             events.add(new t_event(Types.START, tr.getTime().getTime("seconde")));
                             period += t.getPeriod();
+                            t.setPeriodic(true);
                         }
                         else if(((ptask_tracepoint) tr).getState().equals("\"b_wait_activation\"")) {
-                            if(t.getStart() != null) events.add(new t_event(Types.FINISH, tr.getTime().getTime("seconde"), (tr.getTime().getTime("seconde")-t.getStart())<((period+t.getDeadline())/1000000.0)));
+                            if(t.getStart() != null) events.add(new t_event(Types.FINISH, tr.getTime().getTime("seconde"), (tr.getTime().getTime("seconde")-defwake)<(t.getDeadline()/1000000.0)));
                             else events.add(new t_event(Types.FINISH, tr.getTime().getTime("seconde")));
-                        }
-                        else if(((ptask_tracepoint) tr).getState().equals("\"e_wait_activation\"")) {
-                            events.add(new t_event(Types.START, tr.getTime().getTime("seconde")));
-                            period += t.getPeriod();
+                            t.setState(false);
                         }
                     }
                     else if(((ptask_tracepoint) tr).getState().equals("\"e_wait_activation\"")) {
                         t.setState(true);
-                        t.setStart(tr.getTime().getTime("seconde"));
+                        if(once) {
+                            t.setStart(tr.getTime().getTime("seconde"));
+                            period = 0.0;
+                        }
+                        else period += t.getPeriod();
+                        once = false;
                         events.add(new t_event(Types.START, tr.getTime().getTime("seconde")));
-                        period = 0.0;
+                        defwake = tr.getTime().getTime("seconde");
                     }
                 }
                 else if(tr instanceof sched_switch) {

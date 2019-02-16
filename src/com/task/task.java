@@ -22,6 +22,7 @@ public class task {
     protected Integer deadline = null;
     protected Double start = null;
     protected Boolean state = false;
+    protected Boolean periodic = false;
     protected List<t_event> events = null;
 
     public Integer getId() {
@@ -54,6 +55,10 @@ public class task {
 
     public Double getStart() {
         return this.start;
+    }
+
+    public Boolean isPeriodic() {
+        return this.periodic;
     }
 
     public Boolean isActivated() {
@@ -94,6 +99,10 @@ public class task {
 
     public void setStart(Double start) {
         this.start = start;
+    }
+
+    public void setPeriodic(Boolean state) {
+        this.periodic = state;
     }
 
     public void setState(Boolean state) {
