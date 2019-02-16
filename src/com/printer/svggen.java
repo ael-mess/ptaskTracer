@@ -213,9 +213,15 @@ public class svggen {
                     period = t.getPeriod();
                     deadline = t.getDeadline();
                     start = t.getStart();
-                    if(period != 0 && deadline != 0 && start!=null) for(int nb_period=0; ((start-this.start+((nb_period/1000000.0)*period))*this.scale)<this.width; nb_period++) {
-                        this.f.wakeLine((start - this.start + (nb_period/1000000.0)*period)*this.scale, (1+this.curH)*this.task_hei, this.curH*this.task_hei);
-                        this.f.deadLine((start - this.start + ((nb_period*period+deadline)/1000000.0))*this.scale, (1+this.curH)*this.task_hei, this.curH*this.task_hei);
+                    if(t.isPeriodic()) {
+                        if(period != 0 && deadline != 0 && start!=null) for(int nb_period=0; ((start-this.start+((nb_period/1000000.0)*period))*this.scale)<this.width; nb_period++) {
+                            this.f.wakeLine((start - this.start + (nb_period/1000000.0)*period)*this.scale, (1+this.curH)*this.task_hei, this.curH*this.task_hei);
+                            this.f.deadLine((start - this.start + ((nb_period*period+deadline)/1000000.0))*this.scale, (1+this.curH)*this.task_hei, this.curH*this.task_hei);
+                        }
+                    }
+                    else for(t_event t_e : t.getEvents()) if(t_e.getType().equals(Types.START) && deadline!=0) {
+                        this.f.wakeLine((t_e.getValue()-this.start)*this.scale, (1+this.curH)*this.task_hei, this.curH*this.task_hei);
+                        this.f.deadLine((t_e.getValue()+(deadline/1000000.0)-this.start)*this.scale, (1+this.curH)*this.task_hei, this.curH*this.task_hei);
                     }
                 this.curH++;
                 }
