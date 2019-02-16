@@ -183,6 +183,7 @@ public class task_service {
                     }
                     else if(((ptask_tracepoint) tr).getState().equals("\"e_wait_activation\"")) {
                         t.setState(true);
+                        t.setStart(tr.getTime().getTime("seconde"));
                         events.add(new t_event(Types.START, tr.getTime().getTime("seconde")));
                         period = 0.0;
                     }
