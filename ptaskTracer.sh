@@ -24,8 +24,8 @@ while [[ $# -gt 0 ]]; do
         ;;
         -a|--args)
         ARGS="$2"
-        shift # past argument
-        shift # past value
+        shift
+        shift
         ;;
         -p|--path)
         APPPATH="$2"
@@ -100,7 +100,7 @@ if [[ "$HELP" = true ]]; then # showing help
     echo ""
     echo "With option --old no tracing is performed, the trace analysed will be build/[APP_NAME]_raw.txt"
     echo "These parameters are optional :"
-    echo "<-a|--args ARGS> arguments to the program"
+    echo "<-a|--args ARGS> to specify arguments to the program"
     echo "<-o|--output OUTPUT> to specify directory where all output in build/ is generated"
     echo "<-i|--input INPUT> to specify directory of old build/[APP_NAME]_raw.txt"
     echo "<-t|--time TRACING_TIME> for tracing time in second, must be unsigned double  (default: 4s)"
@@ -129,6 +129,9 @@ if [[ -n "$OLD" ]]; then # svg option
     if [[ -n "$TIME" ]]; then
         echo "[warning] argument ${TIME} not needed with --old option"
     fi
+    if [[ -n "$ARG" ]]; then
+        echo "[warning] argument ${ARG} not needed with --old option"
+    fi
     if [[ -n "$IN" ]]; then
         if ! [[ -d "$IN" ]]; then
             echo "Bad -i --input argument, must be directory, type ptaskTracer --help for help"
@@ -155,6 +158,12 @@ else # no svg option
         echo "Unspecified application path -p or --path"
         echo "Using current directory"
         APPPATH="."
+    fi
+    if [[ -n "$ARG" ]]; then
+        if ! [[ -f "$ARG" ]]; then
+            echo "Bad -a --args argument, must be file, type ptaskTracer --help for help"
+            exit 1
+        fi
     fi
     if [[ -n "$TIME" ]]; then
         if ! [[ $TIME =~ ^[0-9]+([.][0-9]+)?$ ]]; then
