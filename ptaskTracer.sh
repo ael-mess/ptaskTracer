@@ -22,6 +22,11 @@ while [[ $# -gt 0 ]]; do
         shift # past argument
         shift # past value
         ;;
+        -a|--args)
+        ARGS="$2"
+        shift
+        shift
+        ;;
         -p|--path)
         APPPATH="$2"
         shift
@@ -95,8 +100,9 @@ if [[ "$HELP" = true ]]; then # showing help
     echo ""
     echo "With option --old no tracing is performed, the trace analysed will be build/[APP_NAME]_raw.txt"
     echo "These parameters are optional :"
-    echo "<-o|--output OUTPUT> to specifie directory where all output in build/ is generated"
-    echo "<-i|--input INPUT> to specifie directory of old build/[APP_NAME]_raw.txt"
+    echo "<-a|--args ARGS> to specify arguments to the program"
+    echo "<-o|--output OUTPUT> to specify directory where all output in build/ is generated"
+    echo "<-i|--input INPUT> to specify directory of old build/[APP_NAME]_raw.txt"
     echo "<-t|--time TRACING_TIME> for tracing time in second, must be unsigned double  (default: 4s)"
     echo "<-s|--scale PRINT_SCALE> for printing scale, must be unsigned double  (default: 1000.0px/s)"
     echo "<-h|--theight TASK_HEIGTH> for printing task height in px, must be unsigned double  (default: 20.0px)"
@@ -123,6 +129,9 @@ if [[ -n "$OLD" ]]; then # svg option
     if [[ -n "$TIME" ]]; then
         echo "[warning] argument ${TIME} not needed with --old option"
     fi
+    if [[ -n "$ARG" ]]; then
+        echo "[warning] argument ${ARG} not needed with --old option"
+    fi
     if [[ -n "$IN" ]]; then
         if ! [[ -d "$IN" ]]; then
             echo "Bad -i --input argument, must be directory, type ptaskTracer --help for help"
@@ -147,8 +156,14 @@ else # no svg option
         fi
     else
         echo "Unspecified application path -p or --path"
-        echo "Using current dirrecory"
+        echo "Using current directory"
         APPPATH="."
+    fi
+    if [[ -n "$ARG" ]]; then
+        if ! [[ -f "$ARG" ]]; then
+            echo "Bad -a --args argument, must be file, type ptaskTracer --help for help"
+            exit 1
+        fi
     fi
     if [[ -n "$TIME" ]]; then
         if ! [[ $TIME =~ ^[0-9]+([.][0-9]+)?$ ]]; then
@@ -218,13 +233,13 @@ if ! [[ -f "/usr/local/lib/w3c.jar" ]]; then # checking jar java libs
     echo "Java jar lib w3c not found in /usr/local/lib, please run inslall.sh"
     exit 1
 elif ! [[ -f "/usr/local/lib/antlr-4.7.2-complete.jar" ]]; then
-    echo "Java jar lib antlr-4.7.2-complete not found in /usr/local/lib, please run inslall.sh"
+    echo "Java jar lib antlr-4.7.2-complete not found in /usr/local/lib, please run install.sh"
     exit 1
 elif ! [[ -f "/usr/local/lib/batik-1.10/lib/batik-all-1.10.jar" ]]; then
-    echo "Java jar lib batik-all-1.10 not found in /usr/local/lib/batik-1.10/lib, please run inslall.sh"
+    echo "Java jar lib batik-all-1.10 not found in /usr/local/lib/batik-1.10/lib, please run install.sh"
     exit 1
 elif ! [[ -f "/usr/local/lib/ptaskTracer-1.0.jar" ]]; then
-    echo "Java jar lib ptaskTracer-1.0 not found in /usr/local/lib, please run inslall.sh"
+    echo "Java jar lib ptaskTracer-1.0 not found in /usr/local/lib, please run install.sh"
     exit 1
 fi
 echo -e "[\033[0;32mOK\033[0m]"
@@ -277,7 +292,7 @@ if [[ -z "$OLD" ]]; then
     if [ $? -eq 1 ]; then
         echo "lttng start error: session not started"
     fi
-    sudo sh -c "exec ./${APPPATH}/${APP} > /dev/null &"
+    sudo sh -c "exec ./${APPPATH}/${APP} ${ARGS} > /dev/null &"
     if [ $? -eq 1 ]; then
         echo "Application $APP not started"
         exit 1
