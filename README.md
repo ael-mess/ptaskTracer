@@ -74,6 +74,7 @@ $ ptaskTracer --help
 These parameters are optional :
 
 -  <code><-o|--output OUTPUT></code> to specifie directory where all output in build/ is generated
+-  <code><-a|--arg ARGS></code> to specify arguments to the program
 -  <code><-i|--input INPUT></code> to specifie directory of the old <code>build/[APP_NAME]_raw.txt</code>
 -  <code><-t|--time TRACING_TIME></code> for tracing time in second, must be unsigned double  (default: 4s)
 -  <code><-s|--scale PRINT_SCALE></code> for printing scale, must be unsigned double  (default: 1000.0px/s)
